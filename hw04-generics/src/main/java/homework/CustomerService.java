@@ -7,10 +7,10 @@ import java.util.TreeMap;
 
 public class CustomerService {
 
-    private final Map<Customer, String> customerMap = new TreeMap<>();
+    private final TreeMap<Customer, String> customerMap = new TreeMap<>();
 
     public Map.Entry<Customer, String> getSmallest() {
-        Map.Entry<Customer, String> customerStringEntry = customerMap.entrySet().stream().findFirst().orElse(null);
+        Map.Entry<Customer, String> customerStringEntry = customerMap.firstEntry();
         if (customerStringEntry == null) return null;
         return new AbstractMap.SimpleImmutableEntry<>(
                 new Customer(customerStringEntry.getKey().getId(),
