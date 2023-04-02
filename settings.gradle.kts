@@ -23,3 +23,4 @@ pluginManagement {
         maven(url = "https://plugins.gradle.org/m2/")
     }
 }
+include("hw08-gc")
