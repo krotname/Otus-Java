@@ -15,14 +15,9 @@ public class RunTests {
     public static final String RED = "\033[31m";
     public static final String BLACK = "\033[0m";
 
-    public static void main(String[] args) {
-        RunTests runTests = new RunTests();
 
-        runTests.run(Test1.class);
-        runTests.run(Test2.class);
-    }
 
-    private void run(final Class<?> clazz) {
+    public void run(final Class<?> clazz) {
         List<Method> previous = getMetordList(clazz, Before.class);
         List<Method> afters = getMetordList(clazz, After.class);
         process(clazz, previous, afters);
