@@ -7,5 +7,5 @@ import java.util.Map;
 public interface ClientApi {
     Map<Bills, Integer> withdrawal(int amount, int accountId);
 
-    void depositing(int amount, int accountId);
+    void depositing(Bills Bills, int amount, int accountId);
 }
