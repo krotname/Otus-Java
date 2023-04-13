@@ -23,3 +23,4 @@ pluginManagement {
     }
 }
 include("hw06-annotations")
+include("hw10-log")
