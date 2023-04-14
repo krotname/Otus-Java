@@ -17,10 +17,12 @@ pluginManagement {
         id("com.google.cloud.tools.jib") version jib
     }
     repositories {
-        gradlePluginPortal()
-        google()
         mavenCentral()
-        maven(url = "https://plugins.gradle.org/m2/")
+        google()
+        gradlePluginPortal()
     }
 }
+
 include("hw08-gc")
+include("hw06-annotations")
+
