@@ -17,23 +17,35 @@ class Ioc {
     }
 
     static class LogInvocationHandler implements InvocationHandler {
-        private final TestLoggingInterface myClass;
+        private final Object myObject;
 
-        private LogInvocationHandler(TestLoggingInterface myClass) {
-            this.myClass = myClass;
+        private LogInvocationHandler(Object o) {
+            this.myObject = o;
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            for (Method currentMethod : myClass.getClass().getMethods()) {
-                if (currentMethod.isAnnotationPresent(Log.class)
-                        && currentMethod.getName().equals(method.getName())
-                        && Arrays.equals(currentMethod.getParameterTypes(), method.getParameterTypes())) {
-                    String arg = Arrays.toString(args);
-                    System.out.println("executed method: " + method.getName() + ", param: " + arg.substring(1, arg.length() - 1));
-                }
+            Class<?>[] classes = getClasses(args);
+
+            Method currentMethod = null;
+            try {
+                currentMethod = myObject.getClass().getMethod(method.getName(), classes);
+            } catch (NoSuchMethodException | SecurityException ignored) {
             }
-            return method.invoke(myClass, args);
+
+            if (currentMethod != null && currentMethod.isAnnotationPresent(Log.class)) {
+                String arg = Arrays.toString(args);
+                System.out.println("executed method: " + method.getName() + ", param: " + arg.substring(1, arg.length() - 1));
+            }
+            return method.invoke(myObject, args);
         }
+    }
+
+    private static Class<?>[] getClasses(Object[] args) {
+        Class<?>[] classes = new Class[args.length];
+        for (int i = 0; i < args.length; i++) {
+            classes[i] = args[i].getClass();
+        }
+        return classes;
     }
 }

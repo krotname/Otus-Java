@@ -7,7 +7,7 @@ public class TestLogging implements TestLoggingInterface {
 
     @Override
     @Log
-    public void calculation(int i) {
+    public void calculation(Integer i) {
         IntStream.rangeClosed(0, i).boxed().sorted(Comparator.reverseOrder()).forEach(System.out::print);
         System.out.println();
     }
