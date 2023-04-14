@@ -22,4 +22,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+include("hw08-gc")
 include("hw06-annotations")
+
