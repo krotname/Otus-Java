@@ -9,10 +9,10 @@ public enum Bills {
     RUB_2000(2000),
     RUB_5000(5000);
 
+    private final int banknoteDenomination;
+
     Bills(int banknoteDenomination) {
         this.banknoteDenomination = banknoteDenomination;
     }
-
-    private final int banknoteDenomination;
 
 }

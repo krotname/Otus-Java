@@ -1,6 +1,6 @@
 package ru.otus.exception;
 
-public class IncorrectAmountException extends RuntimeException{
+public class IncorrectAmountException extends RuntimeException {
     public IncorrectAmountException() {
         super();
     }
