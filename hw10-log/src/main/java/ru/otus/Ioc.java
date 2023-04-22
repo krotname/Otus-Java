@@ -31,27 +31,37 @@ class Ioc {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable { //todo Минимизировать вызов рефлексии в invoke и
-            Class<?>[] classes = getClasses(args);
+            Class<?>[] classes = this.getClasses(args);
 
-            Method currentMethod = null;
+            Method currentMethod = getCurrentMethod(method, classes, method);
+
+            if (currentMethod != null && currentMethod.isAnnotationPresent(Log.class)) {
+                System.out.println("executed method: " + method.getName() + ", param: " + getArg(args));
+            }
+            return method.invoke(myObject, args);
+        }
+
+        private static String getArg(Object[] args) {
+            String arg = Arrays.toString(args);
+            return arg.substring(1, arg.length() - 1);
+        }
+
+        private Method getCurrentMethod(Method method, Class<?>[] classes, Method currentMethod) {
             try {
                 currentMethod = myObject.getClass().getMethod(method.getName(), classes);
             } catch (NoSuchMethodException | SecurityException ignored) {
             }
+            return currentMethod;
+        }
 
-            if (currentMethod != null && currentMethod.isAnnotationPresent(Log.class)) {
-                String arg = Arrays.toString(args);
-                System.out.println("executed method: " + method.getName() + ", param: " + arg.substring(1, arg.length() - 1));
+        private Class<?>[] getClasses(Object[] args) {
+            Class<?>[] classes = new Class[args.length];
+            for (int i = 0; i < args.length; i++) {
+                classes[i] = args[i].getClass();
             }
-            return method.invoke(myObject, args);
+            return classes;
         }
     }
 
-    private static Class<?>[] getClasses(Object[] args) {
-        Class<?>[] classes = new Class[args.length];
-        for (int i = 0; i < args.length; i++) {
-            classes[i] = args[i].getClass();
-        }
-        return classes;
-    }
+
 }
