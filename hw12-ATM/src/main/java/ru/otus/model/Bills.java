@@ -1,6 +1,8 @@
 package ru.otus.model;
 
+import lombok.Getter;
 
+@Getter
 public enum Bills {
     RUB_100(100),
     RUB_200(200),
@@ -9,10 +11,11 @@ public enum Bills {
     RUB_2000(2000),
     RUB_5000(5000);
 
-    private final int banknoteDenomination;
+    public static final int ZERO = 0;
+    private final int par;
 
-    Bills(int banknoteDenomination) {
-        this.banknoteDenomination = banknoteDenomination;
+    Bills(int par) {
+        this.par = par;
     }
 
 }

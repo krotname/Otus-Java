@@ -2,18 +2,18 @@ package ru.otus.api;
 
 import lombok.RequiredArgsConstructor;
 import ru.otus.model.Bills;
-import ru.otus.service.CollectorService;
+import ru.otus.repository.MoneyBoxRepository;
 
 import java.util.Map;
 
 @RequiredArgsConstructor
 public class CollectorApiImpl implements CollectorApi {
 
-    private final CollectorService collectorService;
+    private final MoneyBoxRepository moneyBoxRepository;
 
     @Override
-    public void replenishmentOfMoney(String collectorPassword, Map<Bills, Integer> bills) {
-        collectorService.replenishmentOfMoney(collectorPassword, bills);
+    public void replenishmentOfMoney(Map<Bills, Integer> bills) {
+        bills.forEach((moneyBoxRepository::addBill));
     }
 
     @Override

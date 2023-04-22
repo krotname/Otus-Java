@@ -5,7 +5,7 @@ import ru.otus.model.Bills;
 import java.util.Map;
 
 public interface ClientApi {
-    Map<Bills, Integer> withdrawal(int amount, int accountId);
+    Map<Bills, Integer> withdrawal(int amount);
 
-    void depositing(Bills Bills, int amount, int accountId);
+    void depositing(Bills Bills, int amount);
 }
