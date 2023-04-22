@@ -9,7 +9,7 @@ public class Demo {
 
     public void action() {
 
-        TestLoggingInterface testLoggingInterface = Ioc.createTestLoggingInterface();
+        TestLoggingInterface testLoggingInterface = Ioc.createTestLoggingInterface(TestLogging.class);
         testLoggingInterface.calculation(6);
         testLoggingInterface.calculation("6");
     }

@@ -1,6 +1,7 @@
 package ru.otus;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
@@ -10,8 +11,13 @@ class Ioc {
     private Ioc() {
     }
 
-    static TestLoggingInterface createTestLoggingInterface() {
-        InvocationHandler handler = new LogInvocationHandler(new TestLogging());
+    static TestLoggingInterface createTestLoggingInterface(Class<?> clazz) {
+        InvocationHandler handler;
+        try {
+            handler = new LogInvocationHandler(clazz.getDeclaredConstructor().newInstance());
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
         return (TestLoggingInterface) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
                 new Class<?>[]{TestLoggingInterface.class}, handler);
     }
@@ -24,7 +30,7 @@ class Ioc {
         }
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable { //todo Минимизировать вызов рефлексии в invoke и
             Class<?>[] classes = getClasses(args);
 
             Method currentMethod = null;
