@@ -1,33 +1,22 @@
 package ru.otus.processor;
 
 import org.junit.jupiter.api.Test;
-import ru.otus.handler.ComplexProcessor;
-import ru.otus.model.Message;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
+import static ru.otus.processor.MockMessage.ORIGINAL_MESSAGE;
 
 class ExchangeProcessorTest {
 
     @Test
     void processTest() {
-        var originalMessage = new Message.Builder(1L).field10("--10--").field11("++11++").field12("**12**").build();
+        var exchangeProcessor = new ExchangeProcessor();
 
-        var exchangeProcessor =  new ExchangeProcessor();
+        var processedMessage = exchangeProcessor.process(ORIGINAL_MESSAGE);
 
-        var processedMessage = exchangeProcessor.process(originalMessage);
+        assertThat(ORIGINAL_MESSAGE.getField9()).isEqualTo(processedMessage.getField9());
+        assertThat(ORIGINAL_MESSAGE.getField10()).isEqualTo(processedMessage.getField10());
 
-        System.out.println(originalMessage);
-        System.out.println(processedMessage);
-
-        assertThat(originalMessage.getField9()).isEqualTo(processedMessage.getField9());
-        assertThat(originalMessage.getField10()).isEqualTo(processedMessage.getField10());
-
-        assertThat(originalMessage.getField11()).isEqualTo(processedMessage.getField12());
-        assertThat(originalMessage.getField12()).isEqualTo(processedMessage.getField11());
+        assertThat(ORIGINAL_MESSAGE.getField11()).isEqualTo(processedMessage.getField12());
+        assertThat(ORIGINAL_MESSAGE.getField12()).isEqualTo(processedMessage.getField11());
     }
 }
