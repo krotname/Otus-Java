@@ -33,15 +33,15 @@ class Ioc {
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable { //todo Минимизировать вызов рефлексии в invoke и
             Class<?>[] classes = this.getClasses(args);
 
-            Method currentMethod = getCurrentMethod(method, classes, method);
+            Method currentMethod = this.getCurrentMethod(method, classes, method);
 
             if (currentMethod != null && currentMethod.isAnnotationPresent(Log.class)) {
-                System.out.println("executed method: " + method.getName() + ", param: " + getArg(args));
+                System.out.println("executed method: " + method.getName() + ", param: " + this.getArg(args));
             }
             return method.invoke(myObject, args);
         }
 
-        private static String getArg(Object[] args) {
+        private String getArg(Object[] args) {
             String arg = Arrays.toString(args);
             return arg.substring(1, arg.length() - 1);
         }
