@@ -1,6 +1,8 @@
 package ru.otus.model;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
     private final long id;
     private final String field1;
     private final String field2;
@@ -223,7 +225,7 @@ public class Message {
         }
 
         public Builder field13(ObjectForMessage field13) {
-            this.field10 = field10;
+            this.field13 = field13;
             return this;
         }
 
