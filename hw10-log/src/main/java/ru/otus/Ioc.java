@@ -5,8 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
+import java.util.HashMap;
 
 class Ioc {
+    private static final HashMap<Object[], Class<?>[]> MAP_ARGS = new HashMap<>();
+    private static final HashMap<MethodWithClasses, Method> METHOD_WITH_CLASSES_METHOD_HASH_MAP = new HashMap<>();
 
     private Ioc() {
     }
@@ -15,7 +18,8 @@ class Ioc {
         InvocationHandler handler;
         try {
             handler = new LogInvocationHandler(clazz.getDeclaredConstructor().newInstance());
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
         return (TestLoggingInterface) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
@@ -30,12 +34,12 @@ class Ioc {
         }
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable { //todo Минимизировать вызов рефлексии в invoke и
-            Class<?>[] classes = this.getClasses(args);
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            Class<?>[] classes = this.getArgs(args);
 
-            Method currentMethod = this.getCurrentMethod(method, classes, method);
+            Method currentMethod = this.getCurrentMethod(MethodWithClasses.of(method, classes));
 
-            if (currentMethod != null && currentMethod.isAnnotationPresent(Log.class)) {
+            if (currentMethod.isAnnotationPresent(Log.class)) {
                 System.out.println("executed method: " + method.getName() + ", param: " + this.getArg(args));
             }
             return method.invoke(myObject, args);
@@ -46,19 +50,28 @@ class Ioc {
             return arg.substring(1, arg.length() - 1);
         }
 
-        private Method getCurrentMethod(Method method, Class<?>[] classes, Method currentMethod) {
+        private Method getCurrentMethod(MethodWithClasses methodWithClasses) {
+            Method methodFomMap = METHOD_WITH_CLASSES_METHOD_HASH_MAP.get(methodWithClasses);
+            if (methodFomMap != null) return methodFomMap;
+
             try {
-                currentMethod = myObject.getClass().getMethod(method.getName(), classes);
+                Method currentMethod = myObject.getClass().getMethod(methodWithClasses.getMethod().getName(), methodWithClasses.getClasses());
+                METHOD_WITH_CLASSES_METHOD_HASH_MAP.put(methodWithClasses, currentMethod);
+                return currentMethod;
             } catch (NoSuchMethodException | SecurityException ignored) {
             }
-            return currentMethod;
+            throw new RuntimeException();
         }
 
-        private Class<?>[] getClasses(Object[] args) {
+        private Class<?>[] getArgs(Object[] args) {
+            Class<?>[] classesFromMap = MAP_ARGS.get(args);
+            if (classesFromMap != null) return classesFromMap;
+
             Class<?>[] classes = new Class[args.length];
             for (int i = 0; i < args.length; i++) {
                 classes[i] = args[i].getClass();
             }
+            MAP_ARGS.put(args, classes);
             return classes;
         }
     }
