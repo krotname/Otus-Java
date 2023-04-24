@@ -1,6 +1,7 @@
 package ru.otus.processor;
 
 import org.junit.jupiter.api.Test;
+import ru.otus.processor.homework.ExchangeProcessor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.otus.processor.MockMessage.ORIGINAL_MESSAGE;

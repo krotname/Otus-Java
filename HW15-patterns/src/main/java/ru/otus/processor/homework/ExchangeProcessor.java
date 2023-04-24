@@ -1,8 +1,9 @@
-package ru.otus.processor;
+package ru.otus.processor.homework;
 
 import ru.otus.model.Message;
+import ru.otus.processor.Processor;
 
-public class ExchangeProcessor implements Processor{
+public class ExchangeProcessor implements Processor {
     @Override
     public Message process(Message message) {
         var field11 = message.getField11();

@@ -2,6 +2,7 @@ package ru.otus.processor;
 
 import org.junit.jupiter.api.Test;
 import ru.otus.exception.EvenSecondException;
+import ru.otus.processor.homework.ExceptionEvenSecondProcessor;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
