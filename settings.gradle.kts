@@ -25,4 +25,4 @@ pluginManagement {
 
 include("hw08-gc")
 include("hw06-annotations")
-
+include("hw16-JSON")
