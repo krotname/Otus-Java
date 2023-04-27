@@ -8,15 +8,16 @@ import java.time.LocalDateTime;
 
 public class ExceptionEvenSecondProcessor implements Processor {
 
-    private LocalDateTime time;
+    private TimeProvider timeProvider;
 
-    public ExceptionEvenSecondProcessor(LocalDateTime time) {
-        this.time = time;
+    public ExceptionEvenSecondProcessor(TimeProvider timeProvider) {
+        this.timeProvider = timeProvider;
     }
 
     @Override
     public Message process(Message message) {
-        if (time.getSecond() % 2 == 0) {
+        int seconds = timeProvider.getLocalDateTime().getSecond();
+        if (seconds % 2 == 0) {
             throw new EvenSecondException();
         }
         return message;

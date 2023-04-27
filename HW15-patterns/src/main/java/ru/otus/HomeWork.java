@@ -23,18 +23,17 @@ public class HomeWork {
 
     public static void main(String[] args) {
         TimeProvider timeProvider = new TimeProviderImpl();
-        var processors = List.of(new ExceptionEvenSecondProcessor(timeProvider.getLocalDateTime()),
+        var processors = List.of(new ExceptionEvenSecondProcessor(timeProvider),
                 new ExchangeProcessor());
 
-        var complexProcessor = new ComplexProcessor(processors, ex -> {
-        });
+        var complexProcessor = new ComplexProcessor(processors, System.err::println);
         var listenerPrinter = new ListenerPrinterConsole();
         var historyListener = new HistoryListener();
         complexProcessor.addListener(listenerPrinter);
         complexProcessor.addListener(historyListener);
 
         var result = complexProcessor.handle(MESSAGE);
-        System.out.println("result:" + result); // что то не работает, прошу подсказки
+        System.out.println("result:" + result);
 
         complexProcessor.removeListener(listenerPrinter);
         complexProcessor.removeListener(historyListener);
