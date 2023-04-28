@@ -1,38 +1,38 @@
 [
   {
-    "name": "Ford",
-    "value": 30
+    "name": "val1",
+    "value": 1
   },
   {
-    "name": "Kia",
-    "value": 25
+    "name": "val2",
+    "value": 10
   },
   {
-    "name": "Mercedes",
-    "value": 70
+    "name": "val3",
+    "value": 10
   },
   {
-    "name": "BMW",
-    "value": 70
+    "name": "val1",
+    "value": 1
   },
   {
-    "name": "Toyota",
-    "value": 45
+    "name": "val2",
+    "value": 10
   },
   {
-    "name": "Kia",
-    "value": 25
+    "name": "val3",
+    "value": 10
   },
   {
-    "name": "Mercedes",
-    "value": 70
+    "name": "val1",
+    "value": 1
   },
   {
-    "name": "BMW",
-    "value": 70
+    "name": "val2",
+    "value": 10
   },
   {
-    "name": "Toyota",
-    "value": 45
+    "name": "val3",
+    "value": 13
   }
 ]

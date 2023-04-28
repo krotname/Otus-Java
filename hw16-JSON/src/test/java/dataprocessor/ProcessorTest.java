@@ -1,6 +1,5 @@
 package dataprocessor;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -18,9 +17,6 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 class ProcessorTest {
 
-    //Надо реализовать методы классов и убедиться, что тест проходит
-    //сам тест менять нельзя
-
     @Test
     @DisplayName("Из файла читается json, обрабатывается, результат сериализуется в строку")
     void processingTest(@TempDir Path tempDir) throws IOException {
@@ -28,7 +24,7 @@ class ProcessorTest {
 
         //given
         var inputDataFileName = "src\\main\\resources\\inputData.json";
-        var outputDataFileName = "src\\main\\resources\\outputData.json";
+        var outputDataFileName = "outputData.json";
         var fullOutputFilePath = String.format("%s%s%s", tempDir, File.separator, outputDataFileName);
 
         var loader = new ResourcesFileLoader(inputDataFileName);
