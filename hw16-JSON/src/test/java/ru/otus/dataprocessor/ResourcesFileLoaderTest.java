@@ -6,7 +6,7 @@ class ResourcesFileLoaderTest {
 
     @Test
     void load() {
-        ResourcesFileLoader resourcesFileLoader = new ResourcesFileLoader("src\\main\\resources\\inputData.json");
+        ResourcesFileLoader resourcesFileLoader = new ResourcesFileLoader("/inputData.json");
         resourcesFileLoader.load().forEach(System.out::println);
     }
 }

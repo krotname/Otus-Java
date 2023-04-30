@@ -23,7 +23,7 @@ class ProcessorTest {
         System.out.println(tempDir);
 
         //given
-        var inputDataFileName = "src\\main\\resources\\inputData.json";
+        var inputDataFileName = "/inputData.json";
         var outputDataFileName = "outputData.json";
         var fullOutputFilePath = String.format("%s%s%s", tempDir, File.separator, outputDataFileName);
 

@@ -4,10 +4,11 @@ import com.google.gson.Gson;
 import ru.otus.model.Measurement;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ResourcesFileLoader implements Loader {
     private final static Gson GSON = new Gson();
@@ -19,10 +20,11 @@ public class ResourcesFileLoader implements Loader {
 
     @Override
     public List<Measurement> load() {
-        try (var bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            Measurement[] measurements = GSON.fromJson(bufferedReader, Measurement[].class);
+        try (var bufferedReader = new BufferedReader(new InputStreamReader(
+                Objects.requireNonNull(getClass().getResourceAsStream(fileName))))) {
+            var measurements = GSON.fromJson(bufferedReader, Measurement[].class);
             return Arrays.asList(measurements);
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             throw new FileProcessException(e);
         }
     }
