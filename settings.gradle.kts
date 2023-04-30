@@ -25,4 +25,6 @@ pluginManagement {
 
 include("hw08-gc")
 include("hw06-annotations")
+include("hw12-ATM")
 include("HW15-patterns")
+

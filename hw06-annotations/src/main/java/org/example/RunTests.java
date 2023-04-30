@@ -50,7 +50,6 @@ public class RunTests {
         for (Method m : previous) {
             try {
                 m.invoke(test);
-
             } catch (Exception e) {
                 printError(e);
             }
