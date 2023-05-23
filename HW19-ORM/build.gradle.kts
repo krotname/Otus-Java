@@ -15,6 +15,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.postgresql:postgresql")
     implementation("com.zaxxer:HikariCP")
+    implementation("org.apache.commons:commons-text:1.10.0")
 
     testImplementation ("org.junit.jupiter:junit-jupiter-api")
     testImplementation ("org.junit.jupiter:junit-jupiter-engine")
