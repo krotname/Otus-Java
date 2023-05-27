@@ -111,7 +111,7 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
 
     private String generateFieldsGetterName(Field field) {
         StringBuilder fieldsUpper = new StringBuilder();
-        String fieldsGetterMethodName = "";
+        String fieldsGetterMethodName;
         fieldsUpper.append(" ").append(field.getName());
         fieldsGetterMethodName = "get" + WordUtils.capitalizeFully(fieldsUpper.substring(1));
         return fieldsGetterMethodName;

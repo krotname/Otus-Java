@@ -7,9 +7,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityClassMetaDataImpl<T>  implements EntityClassMetaData<T> {
+public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
     private final Class<T> persistentClass;
     private final List<Field> allFieldsListMetaData;
+    private List<Field> declaredFields;
 
     public EntityClassMetaDataImpl(Class<T> tClass) {
         persistentClass = tClass;
@@ -44,7 +45,10 @@ public class EntityClassMetaDataImpl<T>  implements EntityClassMetaData<T> {
 
     @Override
     public List<Field> getAllFields() {
-        return List.of(persistentClass.getDeclaredFields());
+        if (declaredFields == null) {
+            declaredFields = List.of(persistentClass.getDeclaredFields());
+        }
+        return declaredFields;
     }
 
     @Override
