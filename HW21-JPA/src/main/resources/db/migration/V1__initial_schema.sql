@@ -1,18 +1,24 @@
--- Для @GeneratedValue(strategy = GenerationType.IDENTITY)
-/*
-create table client
+create sequence clients_SEQ start with 1 increment by 50;
+create sequence addresses_SEQ start with 1 increment by 50;
+create sequence phones_SEQ start with 1 increment by 50;
+
+create table clients
 (
-    id   bigserial not null primary key,
-    name varchar(50)
+    id   bigint not null primary key,
+    name varchar(255),
+    address_id bigint
+
 );
 
- */
+create table addresses
+(
+    id   bigint not null primary key,
+    street varchar(255)
+);
 
--- Для @GeneratedValue(strategy = GenerationType.SEQUENCE)
--- create sequence client_SEQ start with 1 increment by 1;
---
--- create table client
--- (
---     id   bigint not null primary key,
---     name varchar(50)
--- );
+create table phones
+(
+    id   bigint not null primary key,
+    number varchar(255),
+    client_id   bigint
+);

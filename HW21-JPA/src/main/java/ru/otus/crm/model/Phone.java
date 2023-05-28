@@ -1,28 +1,28 @@
 package ru.otus.crm.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 
-@Getter
-@Setter
+@Table(name = "phones")
+@Data
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
-@Table(name = "phone")
 public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    Long id;
+
     @Column(name = "number")
     private String number;
-    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client client;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    Client client;
 
     public Phone(Long id, String number) {
         this.id = id;

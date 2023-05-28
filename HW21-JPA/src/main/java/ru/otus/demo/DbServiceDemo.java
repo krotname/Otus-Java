@@ -71,7 +71,6 @@ public class DbServiceDemo {
         );
 
         System.out.println(loadedSavedClient);
-        System.out.println(savedClient);
 
     }
 }
