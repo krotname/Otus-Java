@@ -23,6 +23,9 @@ pluginManagement {
     }
 }
 
-include("hw08-gc")
 include("hw06-annotations")
+include("hw08-gc")
+include("hw10-log")
+include("hw12-ATM")
+include("HW15-patterns")
 include("hw16-JSON")
