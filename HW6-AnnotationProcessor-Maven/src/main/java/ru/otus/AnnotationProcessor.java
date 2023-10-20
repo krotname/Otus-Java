@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-// https://sysout.ru/obrabotka-annotatsij-na-urovne-ishodnikov/
 @SupportedAnnotationTypes("ru.otus.ToString")
 @AutoService(Processor.class)
 @SupportedSourceVersion(SourceVersion.RELEASE_17)

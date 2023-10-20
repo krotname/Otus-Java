@@ -1,6 +1,6 @@
 package ru.otus;
 
-@CustomToString
+//@CustomToString
 public class Entity {
     String string;
 
