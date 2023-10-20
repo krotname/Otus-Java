@@ -8,8 +8,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +29,6 @@ public class AnnotationProcessor extends AbstractProcessor {
             Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(annotation);
 
             Map<Boolean, List<Element>> annotatedMethods = annotatedElements.stream().collect(Collectors.partitioningBy(element -> element.getSimpleName().toString().startsWith("get")));
-            System.out.println("+++++++");
             List<Element> getters = annotatedMethods.get(true);
             List<Element> otherMethods = annotatedMethods.get(false);
 
@@ -61,7 +59,6 @@ public class AnnotationProcessor extends AbstractProcessor {
         if (lastDot > 0) {
             packageName = className.substring(0, lastDot);
         }
-        System.out.println("+++++++");
         String simpleClassName = className.substring(lastDot + 1);
         String toStringsClassName = "ToStrings";
 
