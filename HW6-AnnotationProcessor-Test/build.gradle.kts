@@ -17,8 +17,8 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation("ru.otus:HW6-AnnotationProcessor-Maven:2.1-SNAPSHOT")
-    annotationProcessor("ru.otus:HW6-AnnotationProcessor-Maven:2.1-SNAPSHOT")
+    implementation("ru.otus:AnnotationProcessor:1.4")
+    annotationProcessor("ru.otus:AnnotationProcessor:1.4")
 
 }
 
