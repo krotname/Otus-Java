@@ -10,6 +10,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import java.util.Set;
 
+// https://sysout.ru/obrabotka-annotatsij-na-urovne-ishodnikov/
 @SupportedAnnotationTypes("ru.otus.CustomToString")
 @AutoService(Processor.class)
 public class AnnotationProcessor extends AbstractProcessor {
