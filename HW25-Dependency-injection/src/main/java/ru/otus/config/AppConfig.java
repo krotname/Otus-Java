@@ -33,7 +33,7 @@ public class AppConfig {
     public IOService ioService() {
         return new IOServiceStreams(System.out, System.in);
     }
-    @AppComponent(order = 0, name = "playe22r")
+    @AppComponent(order = 3, name = "playe22r")
     public Player player() {
         return new Player("ф");
     }
