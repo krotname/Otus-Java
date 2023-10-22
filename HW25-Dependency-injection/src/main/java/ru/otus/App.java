@@ -5,6 +5,8 @@ import ru.otus.appcontainer.api.AppComponentsContainer;
 import ru.otus.config.AppConfig;
 import ru.otus.services.GameProcessor;
 import ru.otus.services.GameProcessorImpl;
+import ru.otus.services.IOService;
+import ru.otus.services.*;
 
 /*
 В классе AppComponentsContainerImpl реализовать обработку, полученной в конструкторе конфигурации,
@@ -33,10 +35,15 @@ public class App {
         AppComponentsContainer container = new AppComponentsContainerImpl(AppConfig.class);
 
         // Приложение должно работать в каждом из указанных ниже вариантов
-        GameProcessor gameProcessor = container.getAppComponent(GameProcessor.class);
-        //GameProcessor gameProcessor = container.getAppComponent(GameProcessorImpl.class);
+//        GameProcessor gameProcessor = container.getAppComponent(GameProcessor.class);
+        GameProcessor gameProcessor = container.getAppComponent(GameProcessorImpl.class);
         //GameProcessor gameProcessor = container.getAppComponent("gameProcessor");
 
         gameProcessor.startGame();
+
+//        var ioService = new IOServiceStreams(System.out, System.in);
+//        var equation = new EquationPreparerImpl();
+//        var playerService = new PlayerServiceImpl(ioService);
+//        new GameProcessorImpl(ioService, equation, playerService).startGame();
     }
 }
