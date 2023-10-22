@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Random;
+
+import static ru.otus.core.repository.HibernateUtils.RANDOM;
 
 @Entity
 @Getter
@@ -31,7 +34,7 @@ public class Client implements Cloneable {
     private List<Phone> phones;
 
     public Client(String name) {
-        this.id = null;
+        this.id = RANDOM.nextLong();
         this.name = name;
     }
 

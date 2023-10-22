@@ -26,6 +26,7 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Client saveClient(Client client) {
+        System.out.println(client);
         cacheManager.put(client.getId(), client);
         return transactionManager.doInTransaction(session -> {
             var clientCloned = client.clone();

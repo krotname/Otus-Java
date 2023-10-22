@@ -8,9 +8,12 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public final class HibernateUtils {
+
+    public static final Random RANDOM = new Random();
 
     public static void sleep(){
         try {
