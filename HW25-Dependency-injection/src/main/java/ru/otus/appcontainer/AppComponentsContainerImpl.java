@@ -24,13 +24,7 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         try {
             checkConfigClass(configClass);
             Object instance = Arrays.stream(configClass.getConstructors()).findFirst().orElseThrow().newInstance();
-
-            Map<String, Method> appComponentMethods = Arrays.stream(AppConfig.class.getDeclaredMethods())
-                    .filter(m -> m.isAnnotationPresent(ANNOTATION_CLASS))
-                    .sorted(Comparator.comparingInt(m -> m.getAnnotation(ANNOTATION_CLASS).order()))
-                    .peek(o -> System.out.println(o.getName() + o.getAnnotation(ANNOTATION_CLASS).order()))
-                    .collect(Collectors.toMap(k -> k.getAnnotation(ANNOTATION_CLASS).name(), v -> v,
-                            (o1, o2) -> o1, LinkedHashMap::new));
+            Map<String, Method> appComponentMethods = getStringMethodMap();
 
             for (Map.Entry<String, Method> stringMethodEntry : appComponentMethods.entrySet()) {
                 Object component;
@@ -38,7 +32,6 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
                 Object[] args = new Object[parameters.length];
                 for (int i = 0; i < parameters.length; i++) {
                     Class<?> type = parameters[i].getType();
-                    System.out.println("type = " + type);
                     args[i] = appComponents.stream()
                             .filter(c -> Arrays.asList(c.getInterfaces()).contains(type)).findFirst().orElseThrow().getObj();
                 }
@@ -50,11 +43,14 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
+    }
 
-
-        System.out.println("++");
-        System.out.println(appComponents);
-        System.out.println("++");
+    private Map<String, Method> getStringMethodMap() {
+        return Arrays.stream(AppConfig.class.getDeclaredMethods())
+                .filter(m -> m.isAnnotationPresent(ANNOTATION_CLASS))
+                .sorted(Comparator.comparingInt(m -> m.getAnnotation(ANNOTATION_CLASS).order()))
+                .collect(Collectors.toMap(k -> k.getAnnotation(ANNOTATION_CLASS).name(), v -> v,
+                        (o1, o2) -> o1, LinkedHashMap::new));
     }
 
 

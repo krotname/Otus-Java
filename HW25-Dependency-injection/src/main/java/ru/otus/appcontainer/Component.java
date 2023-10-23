@@ -6,10 +6,10 @@ import java.util.List;
 public class Component {
 
     private static long count;
-    private long id;
-    private Object obj;
-    private String name;
-    private Class<?>[] interfaces;
+    private final long id;
+    private final Object obj;
+    private final String name;
+    private final Class<?>[] interfaces;
 
     public Component(Object obj, String name, Class<?>[] interfaces) {
         id = count++;
@@ -26,32 +26,16 @@ public class Component {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Object getObj() {
         return obj;
-    }
-
-    public void setObj(Object obj) {
-        this.obj = obj;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Class<?>[] getInterfaces() {
         return interfaces;
-    }
-
-    public void setInterfaces(Class<?>[] interfaces) {
-        this.interfaces = interfaces;
     }
 
     @Override
