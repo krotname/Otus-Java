@@ -23,39 +23,42 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     private void processConfig(Class<?> configClass) {
         try {
             checkConfigClass(configClass);
-            Object instance = Arrays.stream(configClass.getConstructors())
-                    .findFirst()
-                    .orElseThrow()
-                    .newInstance();
 
-            Map<String, Method> appComponentMethods = getStringMethodMap();
+            Object instance = createConfigInstance(configClass);
 
-            for (Map.Entry<String, Method> stringMethodEntry : appComponentMethods.entrySet()) {
-                Parameter[] parameters = stringMethodEntry.getValue().getParameters();
+            List<Method> annotatedMethods = Arrays.stream(configClass.getDeclaredMethods())
+                    .filter(m -> m.isAnnotationPresent(ANNOTATION_CLASS))
+                    .sorted(Comparator.comparingInt(m -> m.getAnnotation(ANNOTATION_CLASS).order()))
+                    .toList();
+
+            for (Method method : annotatedMethods) {
+                Parameter[] parameters = method.getParameters();
                 Object[] args = new Object[parameters.length];
+
                 for (int i = 0; i < parameters.length; i++) {
                     Class<?> type = parameters[i].getType();
-                    args[i] = appComponents.stream()
-                            .filter(c -> Arrays.asList(c.getInterfaces())
-                                    .contains(type)
-                            ).findFirst()
-                            .orElseThrow()
-                            .getObj();
+                    args[i] = getAppComponentByType(type);
                 }
-                Object component = stringMethodEntry.getValue().invoke(instance, args);
-                appComponents.add(new Component(component, stringMethodEntry.getKey(), component.getClass().getInterfaces()));
+
+                Object component = method.invoke(instance, args);
+                appComponents.add(new Component(component, method.getAnnotation(ANNOTATION_CLASS).name(), component.getClass().getInterfaces()));
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Map<String, Method> getStringMethodMap() {
-        return Arrays.stream(AppConfig.class.getDeclaredMethods())
-                .filter(m -> m.isAnnotationPresent(ANNOTATION_CLASS))
-                .sorted(Comparator.comparingInt(m -> m.getAnnotation(ANNOTATION_CLASS).order()))
-                .collect(Collectors.toMap(k -> k.getAnnotation(ANNOTATION_CLASS).name(), v -> v,
-                        (o1, o2) -> o1, LinkedHashMap::new));
+    // Метод для создания экземпляра класса конфигурации
+    private Object createConfigInstance(Class<?> configClass) throws InstantiationException, IllegalAccessException, InvocationTargetException {
+        return configClass.getDeclaredConstructors()[0].newInstance();
+    }
+
+    private Object getAppComponentByType(Class<?> type) {
+        return appComponents.stream()
+                .filter(c -> Arrays.asList(c.getInterfaces()).contains(type))
+                .findFirst()
+                .orElseThrow()
+                .getObj();
     }
 
 
