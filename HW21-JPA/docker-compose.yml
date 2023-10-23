@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13.7-alpine
+    container_name: db
+    volumes:
+      - /var/lib/postgresql/data/
+    ports:
+      - "5430:5432"
+    environment:
+      - POSTGRES_DB=demoDB
+      - POSTGRES_USER=usr
+      - POSTGRES_PASSWORD=pwd
+      - TZ=Europe/Moscow
