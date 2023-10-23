@@ -13,9 +13,8 @@ import java.util.stream.Collectors;
 
 public class AppComponentsContainerImpl implements AppComponentsContainer {
 
-    private final List<Object> appComponents = new ArrayList<>();
-    private final Map<String, Object> appComponentsByName = new LinkedHashMap<>();
-    private final Map<String, Object> appComponentsByClass = new LinkedHashMap<>();
+    public static final Class<AppComponent> ANNOTATION_CLASS = AppComponent.class;
+    private final List<Component> appComponents = new ArrayList<>();
 
     public AppComponentsContainerImpl(Class<?> initialConfigClass) {
         processConfig(initialConfigClass);
@@ -27,26 +26,12 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
 
             Class<?>[] interfaces = configClass.getInterfaces();
 
-            // Храним методы и их аннотации
-            List<Method> annotatedMethods = new ArrayList<>();
-
-            for (Class<?> intf : interfaces) {
-                // Получаем методы интерфейса
-                Method[] methods = intf.getDeclaredMethods();
-
-                for (Method method : methods) {
-                    if (method.isAnnotationPresent(AppComponent.class)) {
-                        annotatedMethods.add(method);
-                    }
-                }
-            }
-
             checkConfigClass(configClass);
             Map<String, Method> appComponentMethods = Arrays.stream(AppConfig.class.getDeclaredMethods())
-                    .filter(m -> m.isAnnotationPresent(AppComponent.class))
-                    .sorted(Comparator.comparingInt(m -> m.getAnnotation(AppComponent.class).order()))
-                    .peek(o -> System.out.println(o.getName() + o.getAnnotation(AppComponent.class).order()))
-                    .collect(Collectors.toMap(k -> k.getAnnotation(AppComponent.class).name(), v -> v,
+                    .filter(m -> m.isAnnotationPresent(ANNOTATION_CLASS))
+                    .sorted(Comparator.comparingInt(m -> m.getAnnotation(ANNOTATION_CLASS).order()))
+                    .peek(o -> System.out.println(o.getName() + o.getAnnotation(ANNOTATION_CLASS).order()))
+                    .collect(Collectors.toMap(k -> k.getAnnotation(ANNOTATION_CLASS).name(), v -> v,
                             (o1, o2) -> o1, LinkedHashMap::new));
 
             for (Map.Entry<String, Method> stringMethodEntry : appComponentMethods.entrySet()) {
@@ -55,15 +40,16 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
                 Object[] args = new Object[parameters.length];
                 for (int i = 0; i < parameters.length; i++) {
                     Class<?> type = parameters[i].getType();
-                    args[i] = appComponentsByClass.get(type.getName()); // todo здесь запрашивается интерфейс. нужно сделать чтобы хранились все интерфейсы
+                    System.out.println("type = " +type);
+                    args[i] = appComponents.stream()
+                            .filter(c -> Arrays.asList(c.getInterfaces()).contains(type)).findFirst().orElseThrow().getObj();
+
                     // Если args[i] остается null, возможно, потребуется создать экземпляр объекта напрямую
                     // или бросить исключение, если для этого типа нет значений по умолчанию.
                 }
                 component = stringMethodEntry.getValue().invoke(instance, args);
                 if (component != null) {
-                    appComponentsByName.put(stringMethodEntry.getKey(), component);
-                    appComponentsByClass.put(component.getClass().getName(), component); // todo здесь кладется класс
-                    appComponents.add(component);
+                    appComponents.add(new Component(component, stringMethodEntry.getKey(), component.getClass().getInterfaces()));
                 }
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
@@ -71,9 +57,9 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         }
 
 
+        System.out.println("++");
         System.out.println(appComponents);
-        System.out.println(appComponentsByName);
-        System.out.println(appComponentsByClass);
+        System.out.println("++");
     }
 
 
@@ -85,11 +71,11 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
 
     @Override
     public <C> C getAppComponent(Class<C> componentClass) {
-        return (C) appComponentsByClass.get(componentClass);
+        return (C) appComponents.stream().filter(component -> component.getObj().getClass().equals(componentClass)).findFirst().orElseThrow().getObj();
     }
 
     @Override
     public <C> C getAppComponent(String componentName) {
-        return (C) appComponentsByName.get(componentName);
+        return (C) appComponents.stream().filter(component -> component.getName().equals(componentName)).findFirst().orElseThrow().getObj();
     }
 }
