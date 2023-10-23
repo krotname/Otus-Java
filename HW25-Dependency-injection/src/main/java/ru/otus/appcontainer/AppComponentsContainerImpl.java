@@ -23,22 +23,27 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     private void processConfig(Class<?> configClass) {
         try {
             checkConfigClass(configClass);
-            Object instance = Arrays.stream(configClass.getConstructors()).findFirst().orElseThrow().newInstance();
+            Object instance = Arrays.stream(configClass.getConstructors())
+                    .findFirst()
+                    .orElseThrow()
+                    .newInstance();
+
             Map<String, Method> appComponentMethods = getStringMethodMap();
 
             for (Map.Entry<String, Method> stringMethodEntry : appComponentMethods.entrySet()) {
-                Object component;
                 Parameter[] parameters = stringMethodEntry.getValue().getParameters();
                 Object[] args = new Object[parameters.length];
                 for (int i = 0; i < parameters.length; i++) {
                     Class<?> type = parameters[i].getType();
                     args[i] = appComponents.stream()
-                            .filter(c -> Arrays.asList(c.getInterfaces()).contains(type)).findFirst().orElseThrow().getObj();
+                            .filter(c -> Arrays.asList(c.getInterfaces())
+                                    .contains(type)
+                            ).findFirst()
+                            .orElseThrow()
+                            .getObj();
                 }
-                component = stringMethodEntry.getValue().invoke(instance, args);
-                if (component != null) {
-                    appComponents.add(new Component(component, stringMethodEntry.getKey(), component.getClass().getInterfaces()));
-                }
+                Object component = stringMethodEntry.getValue().invoke(instance, args);
+                appComponents.add(new Component(component, stringMethodEntry.getKey(), component.getClass().getInterfaces()));
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
