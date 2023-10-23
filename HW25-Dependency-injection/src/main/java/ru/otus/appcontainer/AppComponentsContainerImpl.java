@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class AppComponentsContainerImpl implements AppComponentsContainer {
 
-    public static final Class<AppComponent> ANNOTATION_CLASS = AppComponent.class;
+    private static final Class<AppComponent> ANNOTATION_CLASS = AppComponent.class;
     private final List<Component> appComponents = new ArrayList<>();
 
     public AppComponentsContainerImpl(Class<?> initialConfigClass) {
@@ -22,11 +22,9 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
 
     private void processConfig(Class<?> configClass) {
         try {
+            checkConfigClass(configClass);
             Object instance = Arrays.stream(configClass.getConstructors()).findFirst().orElseThrow().newInstance();
 
-            Class<?>[] interfaces = configClass.getInterfaces();
-
-            checkConfigClass(configClass);
             Map<String, Method> appComponentMethods = Arrays.stream(AppConfig.class.getDeclaredMethods())
                     .filter(m -> m.isAnnotationPresent(ANNOTATION_CLASS))
                     .sorted(Comparator.comparingInt(m -> m.getAnnotation(ANNOTATION_CLASS).order()))
@@ -40,12 +38,9 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
                 Object[] args = new Object[parameters.length];
                 for (int i = 0; i < parameters.length; i++) {
                     Class<?> type = parameters[i].getType();
-                    System.out.println("type = " +type);
+                    System.out.println("type = " + type);
                     args[i] = appComponents.stream()
                             .filter(c -> Arrays.asList(c.getInterfaces()).contains(type)).findFirst().orElseThrow().getObj();
-
-                    // Если args[i] остается null, возможно, потребуется создать экземпляр объекта напрямую
-                    // или бросить исключение, если для этого типа нет значений по умолчанию.
                 }
                 component = stringMethodEntry.getValue().invoke(instance, args);
                 if (component != null) {
@@ -71,11 +66,25 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
 
     @Override
     public <C> C getAppComponent(Class<C> componentClass) {
-        return (C) appComponents.stream().filter(component -> component.getObj().getClass().equals(componentClass)).findFirst().orElseThrow().getObj();
+        return (C) appComponents.stream()
+                .filter(component -> component
+                        .getObj()
+                        .getClass()
+                        .equals(componentClass) ||
+                        Arrays.stream(component.getInterfaces())
+                                .anyMatch(a -> a.equals(componentClass)))
+                .findFirst()
+                .orElseThrow()
+                .getObj();
     }
 
     @Override
     public <C> C getAppComponent(String componentName) {
-        return (C) appComponents.stream().filter(component -> component.getName().equals(componentName)).findFirst().orElseThrow().getObj();
+        return (C) appComponents.stream()
+                .filter(component -> component.getName()
+                        .equals(componentName))
+                .findFirst()
+                .orElseThrow()
+                .getObj();
     }
 }
