@@ -18,6 +18,7 @@ public class DbServiceDemo {
 
     private static final Logger log = LoggerFactory.getLogger(DbServiceDemo.class);
 
+
     public static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
 
     public static void main(String[] args) {

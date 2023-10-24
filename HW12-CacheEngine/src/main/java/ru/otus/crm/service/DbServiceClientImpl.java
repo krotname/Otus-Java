@@ -16,18 +16,18 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     private final DataTemplate<Client> clientDataTemplate;
     private final TransactionManager transactionManager;
-    private final CacheManager<Client> cacheManager;
+    private final CacheManager<Client> cacheManagerImpl;
 
-    public DbServiceClientImpl(TransactionManager transactionManager, DataTemplate<Client> clientDataTemplate, CacheManager<Client> cacheManager) {
+    public DbServiceClientImpl(TransactionManager transactionManager, DataTemplate<Client> clientDataTemplate, CacheManager<Client> cacheManagerImpl) {
         this.transactionManager = transactionManager;
         this.clientDataTemplate = clientDataTemplate;
-        this.cacheManager = cacheManager;
+        this.cacheManagerImpl = cacheManagerImpl;
     }
 
     @Override
     public Client saveClient(Client client) {
         System.out.println(client);
-        cacheManager.put(client.getId(), client);
+        cacheManagerImpl.put(client.getId(), client);
         return transactionManager.doInTransaction(session -> {
             var clientCloned = client.clone();
             if (client.getId() == null) {
@@ -43,12 +43,12 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Optional<Client> getClient(long id) {
-        Client client = cacheManager.get(id);
+        Client client = cacheManagerImpl.get(id);
         if (Objects.nonNull(client)) return Optional.of(client);
         return transactionManager.doInReadOnlyTransaction(session -> {
             var clientOptional = clientDataTemplate.findById(session, id);
             log.info("client: {}", clientOptional);
-            clientOptional.ifPresent(c -> cacheManager.put(c.getId(), c));
+            clientOptional.ifPresent(c -> cacheManagerImpl.put(c.getId(), c));
             return clientOptional;
         });
     }
@@ -58,8 +58,8 @@ public class DbServiceClientImpl implements DBServiceClient {
         return transactionManager.doInReadOnlyTransaction(session -> {
             var clientList = clientDataTemplate.findAll(session);
             log.info("clientList:{}", clientList);
-            clientList.forEach(c -> cacheManager.put(c.getId(), c));
+            clientList.forEach(c -> cacheManagerImpl.put(c.getId(), c));
             return clientList;
-       });
+        });
     }
 }

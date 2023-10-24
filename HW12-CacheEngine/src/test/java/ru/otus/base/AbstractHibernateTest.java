@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import ru.otus.cache.CacheManager;
+import ru.otus.cache.CacheManagerImpl;
 import ru.otus.core.repository.DataTemplateHibernate;
 import ru.otus.core.repository.HibernateUtils;
 import ru.otus.core.sessionmanager.TransactionManagerHibernate;
@@ -26,7 +27,7 @@ public abstract class AbstractHibernateTest {
     protected TransactionManagerHibernate transactionManager;
     protected DataTemplateHibernate<Client> clientTemplate;
     protected DBServiceClient dbServiceClient;
-    protected CacheManager<Client> cacheManager;
+    protected CacheManager<Client> cacheManagerImpl;
 
     private static TestContainersConfig.CustomPostgreSQLContainer CONTAINER;
 
@@ -59,9 +60,9 @@ public abstract class AbstractHibernateTest {
 
         transactionManager = new TransactionManagerHibernate(sessionFactory);
         clientTemplate = new DataTemplateHibernate<>(Client.class);
-        cacheManager = new CacheManager<>();
+        cacheManagerImpl = new CacheManagerImpl<>();
 
-        dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate, cacheManager);
+        dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate, cacheManagerImpl);
     }
 
     protected EntityStatistics getUsageStatistics() {

@@ -2,7 +2,7 @@ package ru.otus.demo;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cfg.Configuration;
-import ru.otus.cache.CacheManager;
+import ru.otus.cache.CacheManagerImpl;
 import ru.otus.core.repository.DataTemplateHibernate;
 import ru.otus.core.repository.HibernateUtils;
 import ru.otus.core.sessionmanager.TransactionManagerHibernate;
@@ -34,7 +34,7 @@ public class DbServiceDemo {
 
         var clientTemplate = new DataTemplateHibernate<>(Client.class);
 
-        var cacheManager = new CacheManager<Client>();
+        var cacheManager = new CacheManagerImpl<Client>();
 
         var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate, cacheManager);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
