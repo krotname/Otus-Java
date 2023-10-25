@@ -8,6 +8,8 @@ repositories {
     mavenCentral()
 }
 
+tasks.register("prepareKotlinBuildScriptModel"){}
+
 dependencies {
     implementation ("org.projectlombok:lombok")
     annotationProcessor ("org.projectlombok:lombok")
