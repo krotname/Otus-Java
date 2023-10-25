@@ -1,9 +1,15 @@
 package ru.otus.crm.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.Random;
+
+import static ru.otus.core.repository.HibernateUtils.RANDOM;
 
 @Entity
 @Getter
@@ -22,15 +28,13 @@ public class Client implements Cloneable {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
-    @ToString.Exclude
-
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "client")
     private List<Phone> phones;
 
     public Client(String name) {
-        this.id = null;
+        this.id = RANDOM.nextLong();
         this.name = name;
     }
 

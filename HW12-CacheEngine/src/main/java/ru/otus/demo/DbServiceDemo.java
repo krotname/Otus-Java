@@ -1,8 +1,8 @@
 package ru.otus.demo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cfg.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.otus.cache.CacheManagerImpl;
 import ru.otus.core.repository.DataTemplateHibernate;
 import ru.otus.core.repository.HibernateUtils;
 import ru.otus.core.sessionmanager.TransactionManagerHibernate;
@@ -14,10 +14,8 @@ import ru.otus.crm.service.DbServiceClientImpl;
 
 import java.util.List;
 
+@Slf4j
 public class DbServiceDemo {
-
-    private static final Logger log = LoggerFactory.getLogger(DbServiceDemo.class);
-
 
     public static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
 
@@ -33,17 +31,23 @@ public class DbServiceDemo {
         var sessionFactory = HibernateUtils.buildSessionFactory(configuration, Client.class, Phone.class, Address.class);
 
         var transactionManager = new TransactionManagerHibernate(sessionFactory);
-///
+
         var clientTemplate = new DataTemplateHibernate<>(Client.class);
-///
-        var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
+
+        var cacheManager = new CacheManagerImpl<Client>();
+
+        var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate, cacheManager);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
 
         var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
         var clientSecondSelected = dbServiceClient.getClient(clientSecond.getId())
                 .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
         log.info("clientSecondSelected:{}", clientSecondSelected);
-///
+
+        var clientSecondSelected2 = dbServiceClient.getClient(clientSecond.getId())
+                .orElseThrow(() -> new RuntimeException("Client not found, id 2:" + clientSecond.getId()));
+        log.info("clientSecondSelected 2:{}", clientSecondSelected2); // тест кэша
+
         dbServiceClient.saveClient(new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
         var clientUpdated = dbServiceClient.getClient(clientSecondSelected.getId())
                 .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecondSelected.getId()));
@@ -52,26 +56,27 @@ public class DbServiceDemo {
         log.info("All clients");
         dbServiceClient.findAll().forEach(client -> log.info("client:{}", client));
 
-
         var client = new Client(null, "Vasya", new Address(null, "AnyStreet"), List.of(new Phone(null, "13-555-22"),
                 new Phone(null, "14-666-333")));
 
-        //when
         var savedClient = transactionManager.doInTransaction(session -> {
             clientTemplate.insert(session, client);
             return client;
         });
 
-        //then
-
-
-        //when
         var loadedSavedClient = transactionManager.doInReadOnlyTransaction(
                 session -> clientTemplate.findById(session, savedClient.getId())
                         .map(Client::clone)
         );
 
-        System.out.println(loadedSavedClient);
+        log.info(String.valueOf(loadedSavedClient));
+
+        var loadedSavedClient2 = transactionManager.doInReadOnlyTransaction(
+                session -> clientTemplate.findById(session, savedClient.getId())
+                        .map(Client::clone)
+        );
+        log.info(String.valueOf(loadedSavedClient2));
+
 
     }
 }
