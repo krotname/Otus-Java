@@ -1,8 +1,9 @@
-package ru.otus.demo;
+package ru.otus;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cfg.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.otus.core.repository.DataTemplateHibernate;
 import ru.otus.core.repository.HibernateUtils;
 import ru.otus.core.sessionmanager.TransactionManagerHibernate;
@@ -11,17 +12,26 @@ import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
 import ru.otus.crm.service.DbServiceClientImpl;
+import ru.otus.servlet.TemplateProcessor;
+import ru.otus.servlet.TemplateProcessorImpl;
+import ru.otus.servlet.UserAuthService;
+import ru.otus.servlet.UserAuthServiceImpl;
+import ru.otus.web.UsersWebServer;
+import ru.otus.web.UsersWebServerWithFilterBasedSecurity;
 
 import java.util.List;
 
+import static ru.otus.web.UsersWebServerWithFilterBasedSecurity.TEMPLATES_DIR;
+
+@Slf4j
 public class DbServiceDemo {
 
-    private static final Logger log = LoggerFactory.getLogger(DbServiceDemo.class);
+    private static final int WEB_SERVER_PORT = 5555;
 
 
     public static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         var configuration = new Configuration().configure(HIBERNATE_CFG_FILE);
 
         var dbUrl = configuration.getProperty("hibernate.connection.url");
@@ -33,9 +43,9 @@ public class DbServiceDemo {
         var sessionFactory = HibernateUtils.buildSessionFactory(configuration, Client.class, Phone.class, Address.class);
 
         var transactionManager = new TransactionManagerHibernate(sessionFactory);
-///
+
         var clientTemplate = new DataTemplateHibernate<>(Client.class);
-///
+
         var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
 
@@ -43,7 +53,7 @@ public class DbServiceDemo {
         var clientSecondSelected = dbServiceClient.getClient(clientSecond.getId())
                 .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
         log.info("clientSecondSelected:{}", clientSecondSelected);
-///
+
         dbServiceClient.saveClient(new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
         var clientUpdated = dbServiceClient.getClient(clientSecondSelected.getId())
                 .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecondSelected.getId()));
@@ -56,16 +66,11 @@ public class DbServiceDemo {
         var client = new Client(null, "Vasya", new Address(null, "AnyStreet"), List.of(new Phone(null, "13-555-22"),
                 new Phone(null, "14-666-333")));
 
-        //when
         var savedClient = transactionManager.doInTransaction(session -> {
             clientTemplate.insert(session, client);
             return client;
         });
 
-        //then
-
-
-        //when
         var loadedSavedClient = transactionManager.doInReadOnlyTransaction(
                 session -> clientTemplate.findById(session, savedClient.getId())
                         .map(Client::clone)
@@ -73,5 +78,13 @@ public class DbServiceDemo {
 
         System.out.println(loadedSavedClient);
 
+
+        UserAuthService authService = new UserAuthServiceImpl();
+
+        UsersWebServer usersWebServer = new UsersWebServerWithFilterBasedSecurity(WEB_SERVER_PORT,
+                authService);
+
+        usersWebServer.start();
+        usersWebServer.join();
     }
 }
