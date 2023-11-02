@@ -13,7 +13,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
-@Table(name = "clients")
+@Table(name
+        = "clients")
 public class Client implements Cloneable {
 
     @Id

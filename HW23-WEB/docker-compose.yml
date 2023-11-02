@@ -7,7 +7,7 @@ services:
     ports:
       - "5430:5432"
     environment:
-      - POSTGRES_DB=demoDB
+      - POSTGRES_DB=demoDB2
       - POSTGRES_USER=usr
       - POSTGRES_PASSWORD=pwd
       - TZ=Europe/Moscow

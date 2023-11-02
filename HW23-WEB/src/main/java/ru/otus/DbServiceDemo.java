@@ -1,7 +1,5 @@
 package ru.otus;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cfg.Configuration;
 import ru.otus.core.repository.DataTemplateHibernate;
@@ -12,16 +10,12 @@ import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
 import ru.otus.crm.service.DbServiceClientImpl;
-import ru.otus.servlet.TemplateProcessor;
-import ru.otus.servlet.TemplateProcessorImpl;
 import ru.otus.servlet.UserAuthService;
 import ru.otus.servlet.UserAuthServiceImpl;
 import ru.otus.web.UsersWebServer;
 import ru.otus.web.UsersWebServerWithFilterBasedSecurity;
 
 import java.util.List;
-
-import static ru.otus.web.UsersWebServerWithFilterBasedSecurity.TEMPLATES_DIR;
 
 @Slf4j
 public class DbServiceDemo {
