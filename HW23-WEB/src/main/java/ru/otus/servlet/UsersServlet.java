@@ -1,5 +1,8 @@
 package ru.otus.servlet;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -59,6 +62,25 @@ public class UsersServlet extends HttpServlet {
         paramsMap.put("clients",all);
         response.setContentType("text/html");
         response.getWriter().println(templateProcessor.getPage(USERS_PAGE_TEMPLATE, paramsMap));
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse response) {
+
+        String street = req.getParameter("street");
+        String name = req.getParameter("name");
+
+        System.out.println(street + name);
+
+        Client client = new Client();
+        Address address = new Address();
+        address.setStreet(street);
+        client.setAddress(address);
+        client.setName(name);
+
+        dbServiceClient.saveClient(client);
+        response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);//301
+        response.setHeader("Location", "/users");
     }
 
 }
