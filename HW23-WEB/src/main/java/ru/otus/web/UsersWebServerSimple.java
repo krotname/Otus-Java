@@ -1,6 +1,5 @@
 package ru.otus.web;
 
-import com.google.gson.Gson;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -10,8 +9,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import ru.otus.servlet.TemplateProcessorImpl;
 import ru.otus.servlet.UsersApiServlet;
 import ru.otus.servlet.UsersServlet;
-
-import java.io.IOException;
 
 
 public class UsersWebServerSimple implements UsersWebServer {
