@@ -1,4 +1,4 @@
-package ru.otus.hw28springweb.model;
+package ru.otus.hw28springweb.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -11,8 +11,8 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Phone {
 
     @Id
-    private Long id;
+    private final Long id;
     @Column("client_id")
-    private Long clientId;
-    private String number;
+    private final Long clientId;
+    private final String number;
 }
