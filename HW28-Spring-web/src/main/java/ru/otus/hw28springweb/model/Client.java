@@ -11,22 +11,18 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Table("CLIENTS")
+@Table("clients")
 public class Client {
 
     @Id
-    private  Long id;
+    private Long id;
+    private String name;
 
-    private  String name;
+    @MappedCollection(idColumn = "client_id")
+    private Set<Address> addresses;
 
-//    @MappedCollection(idColumn = "client_id", keyColumn =  "client_id")
-    private  List<Address> address;
-
-    //@MappedCollection(idColumn = "client_id")
+    @MappedCollection(idColumn = "client_id")
     private Set<Phone> phones;
 
-//    @PersistenceCreator
-//    public Client(@Nonnull String name, List<Address> address, List<Phone> phones) {
-//        this(null, name, address, phones);
-//    }
+    // Геттеры, сеттеры и конструкторы
 }

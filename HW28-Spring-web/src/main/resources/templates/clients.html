@@ -59,7 +59,7 @@
             <tbody>
             <tr th:each="user : ${users}">
                 <td th:text="${user.name}"></td>
-                <td th:text="${user.address}"></td>
+                <td th:text="${user.addresses}"></td>
                 <td th:text="${user.phones}"></td>
                 <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
                 <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>

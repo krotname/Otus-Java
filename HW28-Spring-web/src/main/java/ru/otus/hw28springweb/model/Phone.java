@@ -3,19 +3,19 @@ package ru.otus.hw28springweb.model;
 import jakarta.annotation.Nonnull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 
 @Data
-@Table("PHONES")
+@Table("phones")
 public class Phone {
+
     @Id
-    private final int id;
-    private final int clientId;
-    @Nonnull
-    private final String number;
+    private Long id;
+    @Column("client_id")
+    private Long clientId;  // Добавлено поле client_id
+    private String number;
 
-
-    @ToString.Exclude
-    private final Client client;
+    // Геттеры, сеттеры и конструкторы
 }
