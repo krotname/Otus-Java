@@ -1,20 +1,16 @@
 server:
   port: 8099
 spring:
-#  h2:
-#    console.enabled: true
+  docker:
+    compose:
+      enabled: true
+      file: HW28-Spring-web/src/main/resources/docker-compose.yaml
   datasource:
     url: jdbc:postgresql://localhost:5430/demoDB2
     username: usr
     password: pwd
     driverClassName: org.postgresql.Driver
 
-#  jpa:
-#    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
-
-javax:
-  persistence:
-    schema-generation:
-      scripts:
-        create-source:
-        action: drop-and-create
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: TRACE
