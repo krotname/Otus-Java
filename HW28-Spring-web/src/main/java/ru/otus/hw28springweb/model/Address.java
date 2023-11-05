@@ -1,15 +1,21 @@
 package ru.otus.hw28springweb.model;
 
+import jakarta.annotation.Nonnull;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
-@Setter
 @ToString
+@RequiredArgsConstructor
+@Table("ADDRESSES")
 public class Address {
-    private Long id;
-    private String street;
+    @Id
+    private final Long clientId;
+    private final Long clientsKey;
+    private final Long clients;
+    @Nonnull
+    private final String street;
 }
 
 

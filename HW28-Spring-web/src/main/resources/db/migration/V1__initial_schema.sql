@@ -1,27 +1,31 @@
-create sequence clients_SEQ start with 1 increment by 50;
-create sequence addresses_SEQ start with 1 increment by 50;
-create sequence phones_SEQ start with 1 increment by 50;
+create sequence clients_SEQ start with 1 increment by 1;
+create sequence addresses_SEQ start with 1 increment by 1;
+create sequence phones_SEQ start with 1 increment by 1;
 
-create table client
+create table CLIENTS
 (
-    id   bigint not null primary key,
-    name varchar(255),
-    address_id bigint
-
+    id         bigint not null primary key,
+    name       varchar(255),
+    phones       varchar(255)
 );
 
-create table ADDRESS
+create table ADDRESSES
 (
-    id   bigint not null primary key,
-    street varchar(255)
+    client_id bigint not null primary key,
+    clients_key bigint,
+    clients bigint,
+    street    varchar(255)
 );
 
-create table phones
+create table PHONES
 (
-    id   bigint not null primary key,
-    number varchar(255),
-    client_id   bigint
+    client_id bigint not null primary key,
+    clients_key bigint,
+    clients bigint,
+    number    varchar(255)
 );
 
-insert into ADDRESS (id, street) values (1, 'Lenina');
-insert into client (id, name, address_id) values (1, 'Ivan', 1);
+insert into addresses (client_id, street)
+values (1, 'Lenina');
+insert into clients (id, name)
+values (1, 'Ivan');

@@ -1,13 +1,23 @@
 package ru.otus.hw28springweb.model;
 
+import jakarta.annotation.Nonnull;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 
-@Data
-@NoArgsConstructor
+@Getter
+@ToString
+@RequiredArgsConstructor
+@Table("PHONES")
 public class Phone {
-    Long id;
-    private String number;
+    @Id
+    private final Long clientId;
+    private final Long clientsKey;
+    @Nonnull
+    private final String number;
+
+
     @ToString.Exclude
-    Client client;
+    private final Client client;
 }

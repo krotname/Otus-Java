@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.otus.hw28springweb.controller.repository.ClientRepository;
 import ru.otus.hw28springweb.model.Client;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
