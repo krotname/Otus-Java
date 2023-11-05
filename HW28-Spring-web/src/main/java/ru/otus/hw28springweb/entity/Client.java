@@ -33,7 +33,7 @@ public class Client {
     }
 
     public Client(String name, Set<Address> addresses, Set<Phone> phones) {
-        this(null,  name, addresses, phones);
+        this(null, name, addresses, phones);
     }
 
 
