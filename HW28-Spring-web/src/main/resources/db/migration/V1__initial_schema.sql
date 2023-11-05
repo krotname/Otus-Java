@@ -25,6 +25,6 @@ values ('Ivan');
 insert into addresses (client_id, street)
 values (1, 'Lenina');
 insert into clients (name)
-values ('IvanIvan');
+values ('Petr');
 insert into addresses (client_id, street)
-values (2, 'LeninaIvan');
+values (2, 'Plato');
