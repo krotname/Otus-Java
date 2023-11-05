@@ -8,30 +8,22 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
+import java.util.Set;
 
-@Getter
-@ToString
+@Data
 @Table("CLIENTS")
 public class Client {
 
     @Id
-    private final Long id;
+    private  Long id;
 
-    @Nonnull
-    private final String name;
-
-//    @MappedCollection(idColumn = "client_id", keyColumn =  "client_id")
-    private final List<Address> address;
+    private  String name;
 
 //    @MappedCollection(idColumn = "client_id", keyColumn =  "client_id")
-    private final List<Phone> phones;
+    private  List<Address> address;
 
-    public Client(Long id, @Nonnull String name, List<Address> address, List<Phone> phones) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phones = phones;
-    }
+    //@MappedCollection(idColumn = "client_id")
+    private Set<Phone> phones;
 
 //    @PersistenceCreator
 //    public Client(@Nonnull String name, List<Address> address, List<Phone> phones) {

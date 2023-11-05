@@ -6,14 +6,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 
-@Getter
-@ToString
-@RequiredArgsConstructor
+@Data
 @Table("PHONES")
 public class Phone {
     @Id
-    private final Long clientId;
-    private final Long clientsKey;
+    private final int id;
+    private final int clientId;
     @Nonnull
     private final String number;
 

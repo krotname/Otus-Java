@@ -5,9 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Getter
-@ToString
-@RequiredArgsConstructor
+@Data
 @Table("ADDRESSES")
 public class Address {
     @Id
