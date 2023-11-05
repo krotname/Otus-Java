@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.otus.hw28springweb.repository.ClientRepository;
 import ru.otus.hw28springweb.model.Client;
+import ru.otus.hw28springweb.repository.ClientRepository;
 
 import java.util.Map;
 
@@ -20,11 +20,7 @@ public class ClientController {
 
     @GetMapping("/")
     public String get(Model model) {
-//        Client client = new Client();
-//        client.setId(1L);
-//        client.setName("ыва");
-//        model.addAllAttributes(Map.of("users", List.of(client, client)));
-        model.addAllAttributes(Map.of("users",clientRepository.findAll()));
+        model.addAllAttributes(Map.of("clients", clientRepository.findAll()));
         return "clients";
     }
 

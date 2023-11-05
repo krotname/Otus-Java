@@ -21,10 +21,10 @@
 
 <form action="/users" method="post">
     <div>имя:</div>
-    <input type="text" name="name" placeholder="Введите имя пользователя"/>
+    <input name="name" placeholder="Введите имя пользователя" type="text"/>
     <br/><br/>
     <div>улица:</div>
-    <input type="text" name="street" placeholder="Введите улицу пользователя"/>
+    <input name="street" placeholder="Введите улицу пользователя" type="text"/>
     <br/><br/>
     <input type="submit" value="Добавить"/>
     <input type="reset" value="Reset"/>
@@ -43,7 +43,7 @@
 <!--</form>-->
 
 
-<div th:switch="${users}">
+<div th:switch="${clients}">
     <h2 th:case="null">No users yet!</h2>
     <div th:case="*">
         <h2>Users</h2>
@@ -57,12 +57,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.addresses}"></td>
-                <td th:text="${user.phones}"></td>
-                <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
-                <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+            <tr th:each="client : ${clients}">
+                <td th:text="${client.name}"></td>
+                <td th:text="${client.addresses}"></td>
+                <td th:text="${client.phones}"></td>
+                <td><a th:href="@{/edit/{id}(id=${client.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/{id}(id=${client.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
@@ -72,9 +72,12 @@
 
 <#list clients as client>
 <div>
-    ${client}<#sep>, </#sep>
+    ${client}<#sep>,
+</
+#sep>
 </div>
-</#list>
+</
+#list>
 
 </body>
 </html>

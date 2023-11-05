@@ -1,7 +1,6 @@
 package ru.otus.hw28springweb.model;
 
-import jakarta.annotation.Nonnull;
-import lombok.*;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -14,8 +13,6 @@ public class Phone {
     @Id
     private Long id;
     @Column("client_id")
-    private Long clientId;  // Добавлено поле client_id
+    private Long clientId;
     private String number;
-
-    // Геттеры, сеттеры и конструкторы
 }

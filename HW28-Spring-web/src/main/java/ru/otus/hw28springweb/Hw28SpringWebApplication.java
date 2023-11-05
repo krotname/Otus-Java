@@ -8,8 +8,8 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 @EnableJdbcRepositories
 public class Hw28SpringWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Hw28SpringWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Hw28SpringWebApplication.class, args);
+    }
 
 }

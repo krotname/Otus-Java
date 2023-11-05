@@ -1,13 +1,10 @@
 package ru.otus.hw28springweb.model;
 
-import jakarta.annotation.Nonnull;
-import lombok.*;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,5 +21,4 @@ public class Client {
     @MappedCollection(idColumn = "client_id")
     private Set<Phone> phones;
 
-    // Геттеры, сеттеры и конструкторы
 }
