@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:16.1-bullseye
+    volumes:
+      - /var/lib/postgresql/data/
+    ports:
+      - "5430:5432"
+    environment:
+      - POSTGRES_DB=project-work
+      - POSTGRES_USER=project-work
+      - POSTGRES_PASSWORD=project-work
+      - TZ=Europe/Moscow
