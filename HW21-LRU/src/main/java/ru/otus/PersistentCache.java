@@ -11,15 +11,20 @@ import java.util.Optional;
 
 public class PersistentCache<K, V> implements Cache<K, V> {
     private final File file;
-    private Map<K, V> cache;
+    private final Map<K, V> cache;
     private final ObjectMapper mapper;
 
-    public PersistentCache(File file) throws IOException {
+    public PersistentCache(File file) {
         this.file = file;
         this.mapper = new ObjectMapper();
         if (file.exists()) {
-            TypeReference<HashMap<K,V>> typeRef = new TypeReference<HashMap<K,V>>() {};
-            cache = mapper.readValue(file, typeRef);
+            TypeReference<HashMap<K,V>> typeRef = new TypeReference<>() {
+            };
+            try {
+                cache = mapper.readValue(file, typeRef);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             cache = new HashMap<>();
         }

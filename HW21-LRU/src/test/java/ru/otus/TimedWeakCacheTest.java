@@ -12,13 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeakCacheTest {
+class TimedWeakCacheTest {
 
     private Cache<String, String> cache;
 
     @BeforeEach
     public void setUp() {
-        cache = new WeakCache<>();
+        cache = new TimedWeakCache<>();
     }
 
     @Test
@@ -43,9 +43,6 @@ class WeakCacheTest {
         }
     }
 
-
-
-
     @Test
     public void testSetAndGet() {
         cache.set("key1", "value1");
@@ -63,7 +60,6 @@ class WeakCacheTest {
 
     @Test
     public void testIsEmpty() {
-        cache.clear();
         assertTrue(cache.isEmpty());
         cache.set("key1", "value1");
         assertFalse(cache.isEmpty());

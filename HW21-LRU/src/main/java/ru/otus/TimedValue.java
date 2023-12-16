@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 public class TimedValue<T> {
 
     @Value("${app.time}")
-    private long lifetime;
+    private long lifetime = 10000;
     private final long timestamp;
     private final T value;
 

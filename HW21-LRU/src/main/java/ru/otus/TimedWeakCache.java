@@ -1,31 +1,38 @@
 package ru.otus;
 
-import org.springframework.beans.factory.annotation.Value;
-import ru.otus.Cache;
-
-import java.util.*;
+import java.lang.ref.WeakReference;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TimedWeakCache<K, V> implements Cache<K, V> {
-    @Value("${app.size}")
-    private int capacity;
-
-    private final Map<K, TimedValue<V>> cache;
+    private final ConcurrentHashMap<WeakReference<K>, TimedValue<V>> cache;
 
     public TimedWeakCache() {
-        this.cache = Collections.synchronizedMap(new WeakHashMap<>());
+        this.cache = new ConcurrentHashMap<>();
     }
 
     @Override
     public boolean set(K key, V value) {
-        cache.put(key, new TimedValue<>(value));
+        cleanExpiredEntries();
+        cache.put(new WeakReference<>(key), new TimedValue<>(value));
         return true;
     }
 
     @Override
     public Optional<V> get(K key) {
-        TimedValue<V> timedValue = cache.get(key);
+        cleanExpiredEntries();
+        WeakReference<K> weakKey = new WeakReference<>(key);
+        TimedValue<V> timedValue = cache.entrySet()
+                .stream()
+                .filter(e -> Objects.equals(key, e.getKey().get()))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(null);
+
         if (timedValue == null || timedValue.isExpired()) {
-            cache.remove(key);
+            cache.remove(weakKey);
             return Optional.empty();
         }
         return Optional.of(timedValue.getValue());
@@ -33,11 +40,13 @@ public class TimedWeakCache<K, V> implements Cache<K, V> {
 
     @Override
     public int size() {
+        cleanExpiredEntries();
         return cache.size();
     }
 
     @Override
     public boolean isEmpty() {
+        cleanExpiredEntries();
         return cache.isEmpty();
     }
 
@@ -46,5 +55,7 @@ public class TimedWeakCache<K, V> implements Cache<K, V> {
         cache.clear();
     }
 
-
+    private void cleanExpiredEntries() {
+        cache.entrySet().removeIf(entry -> entry.getKey().get() == null || entry.getValue().isExpired());
+    }
 }

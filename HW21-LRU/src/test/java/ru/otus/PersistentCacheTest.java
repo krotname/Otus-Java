@@ -12,13 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeakCacheTest {
+class PersistentCacheTest {
 
     private Cache<String, String> cache;
 
     @BeforeEach
     public void setUp() {
-        cache = new WeakCache<>();
+        cache = new PersistentCache<>(new File("file-test.cache"));
     }
 
     @Test
