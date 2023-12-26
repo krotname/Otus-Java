@@ -3,6 +3,6 @@ server:
   ssl:
     enabled: true
     key-store-type: JKS
-    key-store: HW30-https\localhost1.jks
+    key-store: classpath:localhost1.jks
     key-store-password: 123123
     key-alias: localhost1
