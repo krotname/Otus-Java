@@ -30,25 +30,13 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-val filesBaseDir = "$projectDir/build/generated"
 val protoSrcDir = "$projectDir/build/generated/main/proto"
-//val grpcSrcDir = "$projectDir/build/generated/main/grpc"
 
-sourceSets {
-    main {
-//        proto {
-//            srcDir(protoSrcDir)
-//        }
-//        java {
-//            srcDir(grpcSrcDir)
-//        }
-    }
-}
+
 
 idea {
     module {
         sourceDirs = sourceDirs.plus(file(protoSrcDir))
-//        sourceDirs = sourceDirs.plus(file(grpcSrcDir))
     }
 }
 
@@ -63,7 +51,6 @@ protobuf {
         }
     }
 
-//    generatedFilesBaseDir = filesBaseDir
     generateProtoTasks {
         ofSourceSet("main").forEach {
             it.plugins {
