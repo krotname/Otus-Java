@@ -33,6 +33,7 @@ include("hw16-JSON")
 include("HW19-ORM")
 include("HW21-JPA")
 include("hw22-cache")
+include("HW25-Dependency-injection")
 include("HW12-CacheEngine")
 include("HW23-WEB")
 include("HW33-Executors")
@@ -40,4 +41,3 @@ include("HW21-LRU")
 findProject("HW21-LRU")?.name = "HW21-LRU"
 include("HW30-https")
 include("HW30-https2")
-
