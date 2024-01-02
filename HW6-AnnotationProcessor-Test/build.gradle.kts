@@ -19,7 +19,12 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("ru.otus:AnnotationProcessor:1.4")
     annotationProcessor("ru.otus:AnnotationProcessor:1.4")
+    testImplementation("ru.otus:AnnotationProcessor:1.4")
+    testAnnotationProcessor("ru.otus:AnnotationProcessor:1.4")
+}
 
+val myFirstTask: Task = tasks.create("myFirstTask") {
+    println("Hello, Gradle!")
 }
 
 allprojects {

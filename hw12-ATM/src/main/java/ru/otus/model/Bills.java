@@ -18,8 +18,4 @@ public enum Bills {
         this.par = par;
     }
 
-    public int getPar() {
-        return par;
-    }
-
 }
