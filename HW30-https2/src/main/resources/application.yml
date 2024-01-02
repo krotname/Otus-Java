@@ -1,0 +1,10 @@
+server:
+  port: 8082
+  ssl:
+    enabled: true
+    key-store-type: JKS
+    key-store: classpath:localhost2.jks
+    key-store-password: 123123
+    key-alias: localhost2
+app:
+  password: 123123
