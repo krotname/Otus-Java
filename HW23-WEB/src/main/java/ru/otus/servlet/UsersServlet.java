@@ -59,7 +59,7 @@ public class UsersServlet extends HttpServlet {
 
 //        userDao.findRandomUser().ifPresent(randomUser -> paramsMap.put(TEMPLATE_ATTR_RANDOM_USER, randomUser));
 
-        paramsMap.put("clients",all);
+        paramsMap.put("clients", all);
         response.setContentType("text/html");
         response.getWriter().println(templateProcessor.getPage(USERS_PAGE_TEMPLATE, paramsMap));
     }

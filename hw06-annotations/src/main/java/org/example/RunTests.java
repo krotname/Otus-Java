@@ -16,7 +16,6 @@ public class RunTests {
     public static final String BLACK = "\033[0m";
 
 
-
     public void run(final Class<?> clazz) {
         List<Method> previous = getMetordList(clazz, Before.class);
         List<Method> afters = getMetordList(clazz, After.class);

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface DataTemplate<T> {
     Optional<T> findById(Session session, long id);
+
     List<T> findByEntityField(Session session, String entityFieldName, Object entityFieldValue);
 
     List<T> findAll(Session session);

@@ -15,14 +15,12 @@ public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-
-    @Column(name = "number")
-    private String number;
-
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     Client client;
+    @Column(name = "number")
+    private String number;
 
     public Phone(Long id, String number) {
         this.id = id;
