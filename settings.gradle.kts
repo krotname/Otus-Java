@@ -13,6 +13,7 @@ pluginManagement {
         id("org.springframework.boot") version springframeworkBoot
         id("com.github.johnrengelman.shadow") version johnrengelmanShadow
         id("com.google.cloud.tools.jib") version jib
+        id("com.tomgregory.project-order") version "1.0.0"
     }
     repositories {
         mavenCentral()
@@ -21,23 +22,25 @@ pluginManagement {
     }
 }
 
+
 include("hw01-gradle")
 include("hw06-annotations")
-include("hw08-gc")
-include("hw10-log")
-include("hw12-ATM")
-include("HW15-patterns")
+include("hw04-generics")
 include("HW6-AnnotationProcessor")
 include("HW6-AnnotationProcessor-Test")
+include("hw08-gc")
+include("hw10-log")
+include("HW12-CacheEngine")
+include("hw12-ATM")
+include("HW15-patterns")
 include("hw16-JSON")
 include("HW19-ORM")
 include("HW21-JPA")
-include("hw22-cache")
-include("HW25-Dependency-injection")
-include("HW12-CacheEngine")
-include("HW23-WEB")
-include("HW33-Executors")
 include("HW21-LRU")
-findProject("HW21-LRU")?.name = "HW21-LRU"
+include("hw22-cache")
+include("HW23-WEB")
+include("HW25-Dependency-injection")
+include("HW28-Spring-web")
 include("HW30-https")
 include("HW30-https2")
+include("HW33-Executors")

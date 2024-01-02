@@ -18,7 +18,7 @@ public class UsersWebServerWithFilterBasedSecurity extends UsersWebServerSimple 
     private final UserAuthService authService;
 
     public UsersWebServerWithFilterBasedSecurity(int port,
-                                                 UserAuthService authService){
+                                                 UserAuthService authService) {
         super(port);
         this.authService = authService;
     }

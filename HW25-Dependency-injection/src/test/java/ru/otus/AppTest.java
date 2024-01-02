@@ -60,7 +60,7 @@ class AppTest {
                 .peek(f -> f.setAccessible(true))
                 .collect(Collectors.toList());
 
-        for (var field: fields){
+        for (var field : fields) {
             var fieldValue = field.get(component);
             assertThat(fieldValue).isNotNull().isInstanceOfAny(IOService.class, PlayerService.class,
                     EquationPreparer.class, PrintStream.class, Scanner.class);
@@ -71,7 +71,7 @@ class AppTest {
     @DisplayName("В контексте не должно быть компонентов с одинаковым именем")
     @Test
     public void shouldNotAllowTwoComponentsWithSameName() {
-        assertThatCode(()-> new AppComponentsContainerImpl(ConfigWithTwoComponentsWithSameName.class))
+        assertThatCode(() -> new AppComponentsContainerImpl(ConfigWithTwoComponentsWithSameName.class))
                 .isInstanceOf(Exception.class);
     }
 
@@ -80,13 +80,13 @@ class AppTest {
     public void shouldThrowExceptionWhenContainerContainsMoreThanOneOrNoneExpectedComponents() {
         var ctx = new AppComponentsContainerImpl(ConfigWithTwoSameComponents.class);
 
-        assertThatCode(()-> ctx.getAppComponent(EquationPreparer.class))
+        assertThatCode(() -> ctx.getAppComponent(EquationPreparer.class))
                 .isInstanceOf(Exception.class);
 
-        assertThatCode(()-> ctx.getAppComponent(PlayerService.class))
+        assertThatCode(() -> ctx.getAppComponent(PlayerService.class))
                 .isInstanceOf(Exception.class);
 
-        assertThatCode(()-> ctx.getAppComponent("equationPreparer3"))
+        assertThatCode(() -> ctx.getAppComponent("equationPreparer3"))
                 .isInstanceOf(Exception.class);
     }
 
@@ -107,7 +107,7 @@ class AppTest {
     }
 
     @AppComponentsContainerConfig(order = 1)
-    public static class ConfigWithTwoSameComponents{
+    public static class ConfigWithTwoSameComponents {
 
         @AppComponent(order = 1, name = "equationPreparer1")
         public EquationPreparer equationPreparer1() {

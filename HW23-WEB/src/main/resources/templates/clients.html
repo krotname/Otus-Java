@@ -21,10 +21,10 @@
 
 <form action="/users" method="post">
     <div>имя:</div>
-    <input type="text" name="name" placeholder="Введите имя пользователя"/>
+    <input name="name" placeholder="Введите имя пользователя" type="text"/>
     <br/><br/>
     <div>улица:</div>
-    <input type="text" name="street" placeholder="Введите улицу пользователя"/>
+    <input name="street" placeholder="Введите улицу пользователя" type="text"/>
     <br/><br/>
     <input type="submit" value="Добавить"/>
     <input type="reset" value="Reset"/>
@@ -34,9 +34,12 @@
 
 <#list clients as client>
 <div>
-    ${client}<#sep>, </#sep>
+    ${client}<#sep>,
+</
+#sep>
 </div>
-</#list>
+</
+#list>
 
 </body>
 </html>

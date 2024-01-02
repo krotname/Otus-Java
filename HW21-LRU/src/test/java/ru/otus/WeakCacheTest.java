@@ -44,8 +44,6 @@ class WeakCacheTest {
     }
 
 
-
-
     @Test
     public void testSetAndGet() {
         cache.set("key1", "value1");

@@ -18,7 +18,7 @@ public class PersistentCache<K, V> implements Cache<K, V> {
         this.file = file;
         this.mapper = new ObjectMapper();
         if (file.exists()) {
-            TypeReference<HashMap<K,V>> typeRef = new TypeReference<>() {
+            TypeReference<HashMap<K, V>> typeRef = new TypeReference<>() {
             };
             try {
                 cache = mapper.readValue(file, typeRef);

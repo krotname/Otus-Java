@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class TimedValue<T> {
 
-    @Value("${app.time}")
-    private long lifetime = 10000;
     private final long timestamp;
     private final T value;
+    @Value("${app.time}")
+    private long lifetime = 10000;
 
     public TimedValue(T value) {
         this.timestamp = System.currentTimeMillis();

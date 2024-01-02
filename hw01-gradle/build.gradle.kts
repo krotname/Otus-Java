@@ -1,12 +1,12 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    id ("java")
-    id ("com.github.johnrengelman.shadow")
+    id("java")
+    id("com.github.johnrengelman.shadow")
 }
 
 dependencies {
-    implementation ("com.google.guava:guava")
+    implementation("com.google.guava:guava")
 }
 
 tasks {

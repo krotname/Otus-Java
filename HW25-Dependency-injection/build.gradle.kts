@@ -12,7 +12,7 @@ tasks.register<Wrapper>("wrapper") {
     gradleVersion = "8.4"
 }
 
-tasks.register("prepareKotlinBuildScriptModel"){}
+tasks.register("prepareKotlinBuildScriptModel") {}
 
 
 dependencies {

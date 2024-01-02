@@ -37,7 +37,7 @@ public class GameProcessorImpl implements GameProcessor {
         equations.forEach(e -> {
             boolean isRight = ioService.readInt(e.toString()) == e.getResult();
             gameResult.incrementRightAnswers(isRight);
-            ioService.out(isRight? MSG_RIGHT_ANSWER : MSG_WRONG_ANSWER);
+            ioService.out(isRight ? MSG_RIGHT_ANSWER : MSG_WRONG_ANSWER);
         });
         ioService.out(gameResult.toString());
     }

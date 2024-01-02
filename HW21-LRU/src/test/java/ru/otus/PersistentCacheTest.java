@@ -44,8 +44,6 @@ class PersistentCacheTest {
     }
 
 
-
-
     @Test
     public void testSetAndGet() {
         cache.set("key1", "value1");
