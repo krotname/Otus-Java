@@ -9,8 +9,8 @@ repositories {
 }
 
 dependencies {
-    implementation ("org.projectlombok:lombok")
-    annotationProcessor ("org.projectlombok:lombok")
+    implementation("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 
     implementation("ch.qos.logback:logback-classic")
     implementation("org.hibernate.orm:hibernate-core")

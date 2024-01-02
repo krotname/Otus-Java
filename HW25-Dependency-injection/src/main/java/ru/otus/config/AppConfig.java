@@ -13,7 +13,7 @@ import java.io.OutputStream;
 public class AppConfig {
 
     @AppComponent(order = 0, name = "equationPreparer")
-    public EquationPreparer equationPreparer(){
+    public EquationPreparer equationPreparer() {
         return new EquationPreparerImpl();
     }
 
@@ -33,6 +33,7 @@ public class AppConfig {
     public IOService ioService() {
         return new IOServiceStreams(System.out, System.in);
     }
+
     @AppComponent(order = 3, name = "playe22r")
     public Player player() {
         return new Player("ф");

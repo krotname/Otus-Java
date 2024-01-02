@@ -9,10 +9,8 @@ import ru.otus.web.UsersWebServerWithFilterBasedSecurity;
 @Slf4j
 public class DbServiceDemo {
 
-    private static final int WEB_SERVER_PORT = 5555;
-
-
     public static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
+    private static final int WEB_SERVER_PORT = 5555;
 
     public static void main(String[] args) throws Exception {
 

@@ -14,7 +14,7 @@ public class HelloOtus {
                 .putString("Andrei", Charsets.UTF_8)
                 .hash();
 
-        System.out.println("Gradle copy-past + guava work. HashCode = "+ hc);
+        System.out.println("Gradle copy-past + guava work. HashCode = " + hc);
 
     }
 }

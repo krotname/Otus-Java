@@ -14,12 +14,12 @@ public enum Bills {
     public static final int ZERO = 0;
     private final int par;
 
-    public int getPar() {
-        return par;
-    }
-
     Bills(int par) {
         this.par = par;
+    }
+
+    public int getPar() {
+        return par;
     }
 
 }

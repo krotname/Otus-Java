@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Controller {
 
     @GetMapping("/")
-    public Ent get(){
+    public Ent get() {
         return new Ent((ThreadLocalRandom.current().nextInt()));
     }
 }

@@ -1,6 +1,7 @@
 package ru.otus.core.sessionmanager;
 
 import org.hibernate.SessionFactory;
+
 import java.util.concurrent.Callable;
 
 public class TransactionManagerHibernate implements TransactionManager {
@@ -21,7 +22,7 @@ public class TransactionManagerHibernate implements TransactionManager {
     }
 
 
-    private  <T> T doInTransaction(TransactionAction<T> action, boolean readOnlyTran) {
+    private <T> T doInTransaction(TransactionAction<T> action, boolean readOnlyTran) {
         return wrapException(() -> {
             try (var session = sessionFactory.openSession()) {
                 if (readOnlyTran) {

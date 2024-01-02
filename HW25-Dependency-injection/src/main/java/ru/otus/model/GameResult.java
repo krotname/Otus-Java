@@ -13,11 +13,11 @@ public class GameResult {
 
     public void incrementRightAnswers(boolean mustIncremented) {
         total++;
-        rightAnswers = mustIncremented? ++rightAnswers: rightAnswers;
+        rightAnswers = mustIncremented ? ++rightAnswers : rightAnswers;
     }
 
     @Override
     public String toString() {
-        return String.format(RESULT_PATTERN, player.getName(),total, rightAnswers);
+        return String.format(RESULT_PATTERN, player.getName(), total, rightAnswers);
     }
 }

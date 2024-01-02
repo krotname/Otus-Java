@@ -51,6 +51,6 @@ public class DbServiceClientImpl implements DBServiceClient {
             var clientList = dataTemplate.findAll(connection);
             log.info("clientList:{}", clientList);
             return clientList;
-       });
+        });
     }
 }
