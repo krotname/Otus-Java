@@ -11,5 +11,4 @@ public class Hw36GRpcServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(Hw36GRpcServerApplication.class, args);
     }
-
 }

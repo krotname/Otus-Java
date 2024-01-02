@@ -31,6 +31,7 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+
 val protoSrcDir = "$projectDir/build/generated/main/proto"
 
 idea {

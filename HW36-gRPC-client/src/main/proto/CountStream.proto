@@ -10,6 +10,6 @@ message Value {
 
 message Empty {}
 
-service RemoteDBService {
+service GenerateLong {
   rpc getValue(Empty) returns (Value);
 }
