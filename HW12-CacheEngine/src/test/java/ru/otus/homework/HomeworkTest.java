@@ -59,7 +59,7 @@ class HomeworkTest {
         });
 
         var client = new Client(null, "Vasya", new Address(null, "AnyStreet"),
-            List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
+                List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
         try (var session = sessionFactory.openSession()) {
             session.getTransaction().begin();
             session.persist(client);
@@ -69,8 +69,8 @@ class HomeworkTest {
 
             var loadedClient = session.find(Client.class, 1L).clone();
             assertThat(loadedClient)
-                .usingRecursiveComparison()
-                .isEqualTo(client);
+                    .usingRecursiveComparison()
+                    .isEqualTo(client);
         }
     }
 
@@ -91,15 +91,15 @@ class HomeworkTest {
     private void assertThatClientHasCorrectReferences(Client client) throws IllegalAccessException {
         var hasAddress = false;
         var hasPhones = false;
-        for (var field: client.getClass().getDeclaredFields()){
+        for (var field : client.getClass().getDeclaredFields()) {
             var fieldLowerName = field.getName().toLowerCase();
-            if (field.getType().equals(Address.class)){
+            if (field.getType().equals(Address.class)) {
                 hasAddress = true;
                 field.setAccessible(true);
                 var fieldValue = field.get(client);
                 assertThatObjectHasExpectedClientFieldValue(fieldValue, client);
             } else if (fieldLowerName.contains("phone") &&
-                    Collection.class.isAssignableFrom(field.getType())){
+                    Collection.class.isAssignableFrom(field.getType())) {
                 hasPhones = true;
                 field.setAccessible(true);
                 var fieldValue = (Collection) field.get(client);

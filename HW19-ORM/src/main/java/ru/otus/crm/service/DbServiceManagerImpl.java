@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.otus.core.repository.DataTemplate;
 import ru.otus.core.sessionmanager.TransactionRunner;
 import ru.otus.crm.model.Manager;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,6 @@ public class DbServiceManagerImpl implements DBServiceManager {
             var managerList = managerDataTemplate.findAll(connection);
             log.info("managerList:{}", managerList);
             return managerList;
-       });
+        });
     }
 }

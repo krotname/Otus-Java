@@ -15,7 +15,8 @@ public class UsersApiServlet extends HttpServlet {
 
     private static final int ID_PATH_PARAM_POSITION = 1;
 
-    private final Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();;
+    private final Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+    ;
 
     public UsersApiServlet() {
     }
@@ -31,7 +32,7 @@ public class UsersApiServlet extends HttpServlet {
 
     private long extractIdFromRequest(HttpServletRequest request) {
         String[] path = request.getPathInfo().split("/");
-        String id = (path.length > 1)? path[ID_PATH_PARAM_POSITION]: String.valueOf(- 1);
+        String id = (path.length > 1) ? path[ID_PATH_PARAM_POSITION] : String.valueOf(-1);
         return Long.parseLong(id);
     }
 
