@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class GRPCServer {
     private static final int SERVER_PORT = 8190;
-    private Server server;
+    private final Server server;
 
     @SneakyThrows
     public GRPCServer(GeneratorService generatorService) {
@@ -22,6 +22,6 @@ public class GRPCServer {
 
         server.start();
         log.info("GRPCServer waiting for client connections");
-//        server.awaitTermination();
+        server.awaitTermination();
     }
 }
