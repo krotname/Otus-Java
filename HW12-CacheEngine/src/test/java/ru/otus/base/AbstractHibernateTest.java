@@ -23,13 +23,12 @@ import static ru.otus.demo.DbServiceDemo.HIBERNATE_CFG_FILE;
 
 
 public abstract class AbstractHibernateTest {
+    private static TestContainersConfig.CustomPostgreSQLContainer CONTAINER;
     protected SessionFactory sessionFactory;
     protected TransactionManagerHibernate transactionManager;
     protected DataTemplateHibernate<Client> clientTemplate;
     protected DBServiceClient dbServiceClient;
     protected CacheManager<Client> cacheManagerImpl;
-
-    private static TestContainersConfig.CustomPostgreSQLContainer CONTAINER;
 
     @BeforeAll
     public static void init() {

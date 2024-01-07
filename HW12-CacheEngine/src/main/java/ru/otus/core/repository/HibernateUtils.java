@@ -15,15 +15,15 @@ public final class HibernateUtils {
 
     public static final Random RANDOM = new Random();
 
-    public static void sleep(){
+    private HibernateUtils() {
+    }
+
+    public static void sleep() {
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private HibernateUtils() {
     }
 
     public static SessionFactory buildSessionFactory(Configuration configuration, Class<?>... annotatedClasses) {

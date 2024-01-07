@@ -77,7 +77,7 @@ public class AnnotationProcessor extends AbstractProcessor {
             out.println(" {");
             out.println();
 
-            out.print(" public static String toString("+simpleClassName+" cat){");
+            out.print(" public static String toString(" + simpleClassName + " cat){");
             out.println();
             out.print(" return ");
 
