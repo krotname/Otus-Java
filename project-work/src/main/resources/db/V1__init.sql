@@ -16,8 +16,8 @@ CREATE TABLE users
     employee        smallint     NOT NULL,
     inn             CHAR(15) NULL,
     passport_number CHAR(15) NULL,
-    created_at      timestamp with time zone DEFAULT current_timestamp with time zone,
-    updated_at      timestamp with time zone DEFAULT current_timestamp with time zone,
+    created_at      timestamp with time zone DEFAULT current_timestamp,
+    updated_at      timestamp with time zone DEFAULT current_timestamp,
     ip_address      INET
 );
 
@@ -50,16 +50,16 @@ CREATE TABLE product
     photo           varchar(255),
     category        uuid REFERENCES category (id) ON DELETE CASCADE ON UPDATE CASCADE,
     measure         varchar(255) NULL, -- мера измерения
-    created_at      timestamp with time zone DEFAULT current_timestamp with time zone,
-    updated_at      timestamp with time zone DEFAULT current_timestamp with time zone
+    created_at      timestamp with time zone DEFAULT current_timestamp,
+    updated_at      timestamp with time zone DEFAULT current_timestamp
 );
 
 CREATE TABLE baskets
 (
     id         uuid PRIMARY KEY,
     user_id    uuid REFERENCES users (id),
-    created_at timestamp with time zone DEFAULT current_timestamp with time zone,
-    updated_at timestamp with time zone DEFAULT current_timestamp with time zone
+    created_at timestamp with time zone DEFAULT current_timestamp,
+    updated_at timestamp with time zone DEFAULT current_timestamp
 );
 
 CREATE TABLE basket_items
@@ -68,8 +68,8 @@ CREATE TABLE basket_items
     product_id uuid REFERENCES product (id) ON DELETE CASCADE ON UPDATE CASCADE,
     quantity   bigint CHECK (quantity >= 0),
     PRIMARY KEY (basket_id, product_id),
-    created_at timestamp with time zone DEFAULT current_timestamp with time zone,
-    updated_at timestamp with time zone DEFAULT current_timestamp with time zone
+    created_at timestamp with time zone DEFAULT current_timestamp,
+    updated_at timestamp with time zone DEFAULT current_timestamp
 );
 
 CREATE TABLE orders
@@ -78,8 +78,8 @@ CREATE TABLE orders
     user_id     uuid REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
     basket      uuid REFERENCES baskets (id) ON DELETE CASCADE ON UPDATE CASCADE,
     description TEXT,
-    created_at  timestamp with time zone DEFAULT current_timestamp with time zone,
-    updated_at  timestamp with time zone DEFAULT current_timestamp with time zone
+    created_at  timestamp with time zone DEFAULT current_timestamp,
+    updated_at  timestamp with time zone DEFAULT current_timestamp
 );
 
 CREATE TABLE order_items
@@ -88,8 +88,8 @@ CREATE TABLE order_items
     product_id uuid REFERENCES product (id) ON DELETE CASCADE ON UPDATE CASCADE,
     quantity   bigint CHECK (quantity >= 0),
     PRIMARY KEY (basket_id, product_id),
-    created_at timestamp with time zone DEFAULT current_timestamp with time zone,
-    updated_at timestamp with time zone DEFAULT current_timestamp with time zone
+    created_at timestamp with time zone DEFAULT current_timestamp,
+    updated_at timestamp with time zone DEFAULT current_timestamp
 );
 
 
@@ -109,8 +109,8 @@ CREATE TABLE goods_delivery
     product_id  uuid REFERENCES product (id) ON DELETE CASCADE ON UPDATE CASCADE,
     quantity    bigint NOT NULL CHECK (quantity >= 0),
     description TEXT,
-    created_at  timestamp with time zone DEFAULT current_timestamp with time zone,
-    updated_at  timestamp with time zone DEFAULT current_timestamp with time zone
+    created_at  timestamp with time zone DEFAULT current_timestamp,
+    updated_at  timestamp with time zone DEFAULT current_timestamp
 );
 
 CREATE TABLE shop_info
