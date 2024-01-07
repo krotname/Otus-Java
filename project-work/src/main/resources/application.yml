@@ -4,7 +4,19 @@ spring:
     username: project-work
     password: project-work
   flyway:
+    url: jdbc:postgresql://localhost:5430/project-work
+    user: project-work
+    password: project-work
     enabled: true
+    locations: classpath:db
+    baseline-on-migrate: true
+    baseline-version: 1
+#  jpa:
+#    defer-datasource-initialization: false
+#    database: postgresql
+  sql:
+    init:
+      mode: always
 
 logging:
   level:

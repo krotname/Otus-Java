@@ -22,13 +22,15 @@ repositories {
 }
 
 dependencies {
+    implementation("org.flywaydb:flyway-core:8.5.13")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    compileOnly("org.projectlombok:lombok")
-    compileOnly("org.springframework.boot:spring-boot-devtools")
-    implementation("org.postgresql:postgresql:42.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.postgresql:postgresql:42.7.1")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+    compileOnly("org.springframework.boot:spring-boot-devtools")
+    compileOnly("org.projectlombok:lombok")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
