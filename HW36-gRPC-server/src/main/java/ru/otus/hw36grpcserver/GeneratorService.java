@@ -19,7 +19,6 @@ public class GeneratorService extends GenerateLongGrpc.GenerateLongImplBase {
         Value value = Value.newBuilder().setValue(generate).build();
         responseObserver.onNext(value);
         responseObserver.onCompleted();
-        super.getValue(request, responseObserver);
-        log.info("sent... {}", generate);
+        log.info("send... {}", generate);
     }
 }
