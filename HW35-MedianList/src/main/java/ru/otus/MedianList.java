@@ -21,12 +21,13 @@ public final class MedianList<T extends Comparable<T>> {
 
 
     public T getMedian() {
-        int size = synchronizedList.size();
+        List<T> sortedList = synchronizedList.stream().sorted().toList();
+        int size = sortedList.size();
         if (size % 2 == 1) {
-            return synchronizedList.get(size / 2);
+            return sortedList.get(size / 2);
         } else {
-            T m1 = synchronizedList.get(size / 2 - 1);
-            T m2 = synchronizedList.get(size / 2);
+            T m1 = sortedList.get(size / 2 - 1);
+            T m2 = sortedList.get(size / 2);
             int compare = Objects.compare(m1, m2, Comparator.naturalOrder());
             return compare < 0 ? m1 : m2;
         }
