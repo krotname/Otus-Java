@@ -19,7 +19,6 @@ public final class MedianList<T extends Comparable<T>> {
         synchronizedList.remove(item);
     }
 
-
     public T getMedian() {
         List<T> sortedList = synchronizedList.stream().sorted().toList();
         int size = sortedList.size();

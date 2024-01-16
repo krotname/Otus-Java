@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class MedianListTest {
     private MedianList<Integer> medianList;
@@ -62,5 +63,15 @@ class MedianListTest {
         medianList.add(22);
         Integer median = medianList.getMedian();
         assertEquals(10, median);
+    }
+
+    @Test
+    void getMedianPerformance() {
+        assertEquals(0, medianList.size());
+        for (int i = 0; i < Util.LIMIT; i++) {
+            medianList.add(Util.random.nextInt());
+        }
+        Integer median = medianList.getMedian();
+        assertNotEquals(0, median);
     }
 }

@@ -8,5 +8,5 @@ public class Util {
     }
 
     public static final Random random = new Random();
-    public static final int LIMIT = 10_000_000;
+    public static final int LIMIT = 1_000_000;
 }

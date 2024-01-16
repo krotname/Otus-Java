@@ -22,13 +22,14 @@ public final class MedianNumList<T extends Number> {
     }
 
     public Double getMedian() {
-        int size = synchronizedList.size();
+        List<T> sortedList = synchronizedList.stream().sorted().toList();
+        int size = sortedList.size();
         if (size % 2 == 1) {
-            T t = synchronizedList.get(size / 2);
+            T t = sortedList.get(size / 2);
             return t.doubleValue() ;
         } else {
-            Number m1 = synchronizedList.get(size / 2 - 1);
-            Number m2 = synchronizedList.get(size / 2);
+            Number m1 = sortedList.get(size / 2 - 1);
+            Number m2 = sortedList.get(size / 2);
             return (m1.doubleValue() + m2.doubleValue()) / 2;
         }
     }
