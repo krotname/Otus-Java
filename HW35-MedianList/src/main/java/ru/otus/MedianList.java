@@ -20,15 +20,73 @@ public final class MedianList<T extends Comparable<T>> {
     }
 
     public T getMedian() {
-        List<T> sortedList = synchronizedList.stream().sorted().toList();
-        int size = sortedList.size();
-        if (size % 2 == 1) {
-            return sortedList.get(size / 2);
+        int size = synchronizedList.size();
+        int k = size / 2;
+
+        if (size % 2 == 0) {
+            // Если размер массива четный, нужно найти два центральных элемента
+            T median1 = medianOfMedians(synchronizedList, k);
+            T median2 = medianOfMedians(synchronizedList, k - 1);
+            // Возвращаем среднее значение двух центральных элементов
+            return getAverage(median1, median2);
         } else {
-            T m1 = sortedList.get(size / 2 - 1);
-            T m2 = sortedList.get(size / 2);
-            int compare = Objects.compare(m1, m2, Comparator.naturalOrder());
-            return compare < 0 ? m1 : m2;
+            // Если размер массива нечетный, нужно найти один центральный элемент
+            return medianOfMedians(synchronizedList, k);
+        }
+    }
+
+    private T getAverage(T a, T b) {
+        // Возвращает среднее значение двух элементов, предполагая, что T extends Comparable<T>
+        if (a.compareTo(b) == 0) {
+            return a;  // a и b равны, возвращаем любой из них
+        } else {
+            return a.compareTo(b) < 0 ? a : b;  // Возвращаем меньший из двух элементов
+        }
+    }
+
+    private T medianOfMedians(List<T> nums, int k) {
+        int chunkSize = 5;
+
+        if (nums.size() <= chunkSize) {
+            // Если размер массива не превышает chunkSize, можно сразу отсортировать
+            Collections.sort(nums);
+            return nums.get(k);
+        }
+
+        // Разделение на группы по chunkSize элементов
+        ArrayList<T> medians = new ArrayList<>();
+        for (int i = 0; i < nums.size(); i += chunkSize) {
+            int endIndex = Math.min(i + chunkSize, nums.size());
+            ArrayList<T> chunk = new ArrayList<>(nums.subList(i, endIndex));
+            Collections.sort(chunk);
+            medians.add(chunk.get(chunk.size() / 2));
+        }
+
+        // Рекурсивный вызов для поиска медианы медиан
+        T pivot = medianOfMedians(medians, medians.size() / 2);
+
+        // Разделение массива на элементы, меньшие, равные и большие чем pivot
+        ArrayList<T> lower = new ArrayList<>();
+        ArrayList<T> equal = new ArrayList<>();
+        ArrayList<T> greater = new ArrayList<>();
+
+        for (T element : nums) {
+            int comparisonResult = element.compareTo(pivot);
+            if (comparisonResult < 0) {
+                lower.add(element);
+            } else if (comparisonResult == 0) {
+                equal.add(element);
+            } else {
+                greater.add(element);
+            }
+        }
+
+        if (k < lower.size()) {
+            return medianOfMedians(lower, k);
+        } else if (k < lower.size() + equal.size()) {
+            return pivot;
+        } else {
+            return medianOfMedians(greater, k - lower.size() - equal.size());
         }
     }
 }
