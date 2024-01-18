@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Generator {
 
-    private final static long FIRST_VALUE = 0;
-    private final static long LAST_VALUE = 8;
+    private static final long FIRST_VALUE = 0;
+    private static final long LAST_VALUE = 8;
     private long currentValue;
 
     public Generator() {
