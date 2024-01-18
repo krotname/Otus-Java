@@ -13,7 +13,8 @@ pluginManagement {
         id("org.springframework.boot") version springframeworkBoot
         id("com.github.johnrengelman.shadow") version johnrengelmanShadow
         id("com.google.cloud.tools.jib") version jib
-        id("com.tomgregory.project-order") version "1.0.0"
+        id("com.google.protobuf")
+        id("idea")
     }
     repositories {
         mavenCentral()
@@ -45,3 +46,7 @@ include("HW30-https")
 include("HW30-https2")
 include("HW33-Executors")
 include("HW35-MedianList")
+include("HW36-gRPC-server")
+include("HW36-gRPC-client")
+
+
