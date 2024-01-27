@@ -31,6 +31,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    annotationProcessor("org.mapstruct:mapstruct:1.5.5.Final")
+    implementation("org.mapstruct:mapstruct-processor:1.5.5.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+    implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     implementation("org.postgresql:postgresql:42.7.1")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
     compileOnly("org.springframework.boot:spring-boot-devtools")
@@ -45,4 +50,8 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+tasks.withType<JavaCompile> {
+    val compilerArgs = options.compilerArgs
+    compilerArgs.add("-Amapstruct.defaultComponentModel=spring")
 }

@@ -10,7 +10,7 @@ import ru.otus.service.ShopInfoService;
 @RestController
 @RequestMapping("/api/v1/shop-info")
 @RequiredArgsConstructor
-public class ShopInfo {
+public class ShopInfoController {
     private final ShopInfoService shopInfoService;
 
     @GetMapping("/")
