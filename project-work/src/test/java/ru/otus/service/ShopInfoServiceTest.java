@@ -10,8 +10,9 @@ import ru.otus.mapper.ShopInfoMapper;
 import ru.otus.model.ShopInfoDto;
 import ru.otus.repository.ShopInfoRepository;
 
-import static org.mockito.Mockito.when;
 import java.util.Collections;
+
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class ShopInfoServiceTest {

@@ -38,7 +38,6 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     implementation("org.postgresql:postgresql:42.7.1")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
-//    compileOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

@@ -5,7 +5,7 @@ import org.mapstruct.factory.Mappers;
 import ru.otus.entity.ShopInfo;
 import ru.otus.model.ShopInfoDto;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShopInfoMapperTest {
 

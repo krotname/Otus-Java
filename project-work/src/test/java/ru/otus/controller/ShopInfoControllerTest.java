@@ -8,9 +8,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.otus.model.ShopInfoDto;
 import ru.otus.service.ShopInfoService;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ShopInfoController.class)
 public class ShopInfoControllerTest {

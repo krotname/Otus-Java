@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.otus.entity.BasketR;
-//import ru.otus.redis.BasketRedisRepository;
 import ru.otus.redis.BasketRedisRepository;
 import ru.otus.repository.OrderItemRepository;
 import ru.otus.repository.ProductRepository;
@@ -20,7 +19,7 @@ public class SaleService {
     private final ProductRepository productRepository;
     private final BasketRedisRepository basketRedisRepository;
 
-    public boolean newOrder(UUID uuid){
+    public boolean newOrder(UUID uuid) {
         log.warn(uuid.toString());
         BasketR basketR = new BasketR();
         basketR.setId(uuid);
