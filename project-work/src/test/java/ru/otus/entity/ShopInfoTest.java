@@ -1,6 +1,7 @@
-package ru.otus.entity;
+package ru.otus.shop.entity;
 
 import org.junit.jupiter.api.Test;
+import ru.otus.shop.entities.ShopInfo;
 
 import java.util.UUID;
 

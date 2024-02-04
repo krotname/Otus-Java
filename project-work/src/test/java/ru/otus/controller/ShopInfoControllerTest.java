@@ -1,12 +1,13 @@
-package ru.otus.controller;
+package ru.otus.shop.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.otus.model.ShopInfoDto;
-import ru.otus.service.ShopInfoService;
+import ru.otus.shop.controllers.ShopInfoController;
+import ru.otus.shop.models.ShopInfoDto;
+import ru.otus.shop.services.ShopInfoService;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

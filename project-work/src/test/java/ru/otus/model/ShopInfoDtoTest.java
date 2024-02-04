@@ -1,6 +1,7 @@
-package ru.otus.model;
+package ru.otus.shop.model;
 
 import org.junit.jupiter.api.Test;
+import ru.otus.shop.models.ShopInfoDto;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;

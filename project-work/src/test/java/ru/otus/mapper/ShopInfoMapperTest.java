@@ -1,9 +1,10 @@
-package ru.otus.mapper;
+package ru.otus.shop.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import ru.otus.entity.ShopInfo;
-import ru.otus.model.ShopInfoDto;
+import ru.otus.shop.entities.ShopInfo;
+import ru.otus.shop.mappers.ShopInfoMapper;
+import ru.otus.shop.models.ShopInfoDto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

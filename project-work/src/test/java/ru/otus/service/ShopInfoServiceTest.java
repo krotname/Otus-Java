@@ -1,14 +1,15 @@
-package ru.otus.service;
+package ru.otus.shop.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.otus.entity.ShopInfo;
-import ru.otus.mapper.ShopInfoMapper;
-import ru.otus.model.ShopInfoDto;
-import ru.otus.repository.ShopInfoRepository;
+import ru.otus.shop.entities.ShopInfo;
+import ru.otus.shop.mappers.ShopInfoMapper;
+import ru.otus.shop.models.ShopInfoDto;
+import ru.otus.shop.repositories.ShopInfoRepository;
+import ru.otus.shop.services.ShopInfoService;
 
 import java.util.Collections;
 
