@@ -7,7 +7,7 @@ import ru.otus.model.ShopInfoDto;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-28T22:20:08+0300",
+    date = "2024-02-04T13:49:30+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Amazon.com Inc.)"
 )
 @Component
