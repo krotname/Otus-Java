@@ -27,6 +27,6 @@ services:
         volumes:
             - "rabbitmq:/var/lib/rabbitmq/mnesia/"
     redis:
-        image: redis:alpine
+        image: redis:7.2.4-alpine3.19
         ports:
             - "6379:6379"
