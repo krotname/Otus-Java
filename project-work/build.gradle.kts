@@ -35,6 +35,8 @@ dependencies {
     implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     implementation("org.postgresql:postgresql:42.7.1")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.security:spring-security-crypto:6.2.1")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
