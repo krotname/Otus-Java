@@ -12,6 +12,7 @@ import ru.otus.shop.repositories.OrderItemRepository;
 import ru.otus.shop.repositories.ProductRepository;
 import ru.otus.shop.models.OrderDto;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -36,6 +37,14 @@ public class SaleService {
         BasketR order = basketRedisRepository.findById(uuid.toString()).orElseThrow();
         log.info("getOrder {} ", order);
 //        orderMapper.orderToOrderDto(); // todo другое дто
+        return null;
+    }
+
+    public OrderDto createSale(OrderDto orderDto) { // todo
+        return null;
+    }
+
+    public List<OrderDto> getUserSales(UUID userId) { // todo
         return null;
     }
 }
