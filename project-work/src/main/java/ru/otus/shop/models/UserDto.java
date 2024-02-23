@@ -12,7 +12,7 @@ import java.util.UUID;
 public class UserDto {
     private UUID id;
     private String login;
-    private String password; // Обратите внимание, что пароль не должен возвращаться в ответах API
+    private String password;
     private String firstName;
     private String lastName;
     private String email;

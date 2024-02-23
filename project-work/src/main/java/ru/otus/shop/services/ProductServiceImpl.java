@@ -2,6 +2,7 @@ package ru.otus.shop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.shop.entities.Product;
 import ru.otus.shop.mappers.ProductMapper;
 import ru.otus.shop.models.ProductDto;
@@ -24,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public List<ProductDto> findAllProducts() {
         return productRepository.findAll().stream()
                 .map(ProductMapper.INSTANCE::productToProductDto)
@@ -31,12 +33,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Optional<ProductDto> findProductById(UUID id) {
         return productRepository.findById(id)
                 .map(ProductMapper.INSTANCE::productToProductDto);
     }
 
     @Override
+    @Transactional
     public ProductDto saveProduct(ProductDto productDto) {
         Product product = ProductMapper.INSTANCE.productDtoToProduct(productDto);
         Product savedProduct = productRepository.save(product);
@@ -44,12 +48,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Optional<ProductDto> updateProduct(UUID id, ProductDto productDetails) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setName(productDetails.getName());
                     product.setPrice(BigDecimal.valueOf(productDetails.getPrice()));
-                    // Обновите другие поля, если это необходимо
                     return ProductMapper.INSTANCE.productToProductDto(productRepository.save(product));
                 });
     }

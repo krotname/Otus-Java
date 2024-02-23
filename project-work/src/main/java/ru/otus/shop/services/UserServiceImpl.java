@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.shop.entities.User;
 import ru.otus.shop.models.UserDto;
 import ru.otus.shop.repositories.UserRepository;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     @Override
+    @Transactional
     public UserDto registerUser(UserDto userDto) {
         User user = new User();
         user.setLogin(userDto.getLogin());
@@ -30,13 +32,13 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
-        // Здесь добавьте логику сохранения пользователя в базу данных
         User savedUser = userRepository.save(user);
         return new UserDto(savedUser.getId(), savedUser.getLogin(), null, savedUser.getFirstName(),
                 savedUser.getLastName(), savedUser.getEmail(), savedUser.getPhone());
     }
 
     @Override
+    @Transactional
     public UserDto loginUser(UserDto userDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userDto.getLogin(), userDto.getPassword()));
@@ -51,13 +53,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto updateUser(UUID id, UserDto userDto) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
-        // Здесь добавьте логику обновления пользователя в базе данных
         User updatedUser = userRepository.save(user);
         return new UserDto(updatedUser.getId(), updatedUser.getLogin(), null, updatedUser.getFirstName(),
                 updatedUser.getLastName(), updatedUser.getEmail(), updatedUser.getPhone());
