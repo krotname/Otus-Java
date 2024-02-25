@@ -12,13 +12,13 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class ProductDto {
     private UUID id;
     private String name;
     private double price;
     private Long quantity;
-//    private Characteristic characteristics;
     private String photo;
-//    private Category category;
+    private CategoryDto category;
     private Measure measure;
 }
