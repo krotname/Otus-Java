@@ -1,8 +1,12 @@
 server:
-  port : 8081
+  port: 8081
 spring:
   jpa:
     open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   application:
     name: shop-project
   datasource:
@@ -17,9 +21,9 @@ spring:
     locations: classpath:db
     baseline-on-migrate: true
     baseline-version: 0
-#  jpa:
-#    defer-datasource-initialization: false
-#    database: postgresql
+  #  jpa:
+  #    defer-datasource-initialization: false
+  #    database: postgresql
   sql:
     init:
       mode: always
@@ -31,5 +35,6 @@ spring:
 logging:
   level:
     org.springframework.jdbc.core.JdbcTemplate: TRACE
+    o.h.engine.jdbc: DEBUG
 springdoc:
   show-actuator: true

@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> findAllProducts() {
         return productRepository.findAll().stream()
                 .map(ProductMapper.INSTANCE::productToProductDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

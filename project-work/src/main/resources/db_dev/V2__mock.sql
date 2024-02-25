@@ -38,10 +38,10 @@ VALUES
 -- Добавление товаров
 INSERT INTO product (id, name, quantity, characteristics, price, photo, category, measure)
 VALUES
-    ('fa4ac245-74e3-41f3-bbe1-34af7a617ed3', 'Smartphone A', 100, '4c6db7eb-ba5c-4ccf-8d33-1e5c5b6883f0', 799.99, 'phone_a.jpg', '2a71e0d3-5f03-4e53-ae36-6a961174d3d3', 'unit'),
-    ('98fe895a-27fe-4e8a-8c6a-3145c3c597d3', 'Headphones X', 50, '3e405f58-8f03-4af3-b64c-b07fb25c2cfd', 149.99, 'headphones_x.jpg', 'fb2449d1-9ee6-4d15-8e90-5e4c3516f6a7', 'pair'),
-('a95cbd6e-78f8-49e2-9bcd-604af5f8fee1', 'Laptop B', 50, 'b654c345-6789-4c12-bc34-567890abc123', 1299.99, 'laptop_b.jpg', '901de234-5678-4890-abc1-2345de678901', 'unit'),
-('3e174683-9546-45f9-9ecb-5dbdcd68a9a9', 'Smartwatch Y', 30, 'c789d456-789a-4f56-de78-9012ef34567d', 199.99, 'smartwatch_y.jpg', 'abcd3456-789e-4abc-de01-23ef45678901', 'unit');
+    ('fa4ac245-74e3-41f3-bbe1-34af7a617ed3', 'Smartphone A', 100, '4c6db7eb-ba5c-4ccf-8d33-1e5c5b6883f0', 799.99, 'phone_a.jpg', '2a71e0d3-5f03-4e53-ae36-6a961174d3d3', 'UNIT'),
+    ('98fe895a-27fe-4e8a-8c6a-3145c3c597d3', 'Headphones X', 50, '3e405f58-8f03-4af3-b64c-b07fb25c2cfd', 149.99, 'headphones_x.jpg', 'fb2449d1-9ee6-4d15-8e90-5e4c3516f6a7', 'PAIR'),
+('a95cbd6e-78f8-49e2-9bcd-604af5f8fee1', 'Laptop B', 50, 'b654c345-6789-4c12-bc34-567890abc123', 1299.99, 'laptop_b.jpg', '901de234-5678-4890-abc1-2345de678901', 'UNIT'),
+('3e174683-9546-45f9-9ecb-5dbdcd68a9a9', 'Smartwatch Y', 30, 'c789d456-789a-4f56-de78-9012ef34567d', 199.99, 'smartwatch_y.jpg', 'abcd3456-789e-4abc-de01-23ef45678901', 'UNIT');
 
 
 -- Добавление корзин

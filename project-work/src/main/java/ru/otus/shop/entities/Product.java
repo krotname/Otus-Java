@@ -3,8 +3,7 @@ package ru.otus.shop.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -15,6 +14,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "product", schema = "public")
 public class Product {
     @Id
@@ -31,6 +32,8 @@ public class Product {
     private Long quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "characteristics")
     private Characteristic characteristics;
@@ -44,17 +47,22 @@ public class Product {
     private String photo;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "category")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "manufacturer")
     private Manufacturer manufacturer;
 
     @Size(max = 10)
     @Column(name = "measure")
+    @Enumerated(EnumType.STRING)
     private Measure measure;
 
     @Column(name = "created_at")
@@ -62,5 +70,4 @@ public class Product {
 
     @Column(name = "updated_at")
     private OffsetDateTime updatedAt;
-
 }
