@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -54,7 +52,8 @@ public class SecurityConfig {
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
@@ -65,9 +64,9 @@ public class SecurityConfig {
                 .ignoring()
                 .requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -80,6 +79,7 @@ public class SecurityConfig {
                 .and()
                 .build();
     }
+
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder bCryptPasswordEncoder) {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();

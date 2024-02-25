@@ -23,7 +23,7 @@ services:
             - /etc/rabbitmq/rabbitmq.conf:/config/rabbitmq.conf:ro
         ports:
             - "15672:15672"
-            - 5672:5672
+            - "5672:5672"
         volumes:
             - "rabbitmq:/var/lib/rabbitmq/mnesia/"
     redis:
