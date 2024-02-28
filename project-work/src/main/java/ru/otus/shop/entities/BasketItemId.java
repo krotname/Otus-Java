@@ -14,8 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Embeddable
-public class BasketItemId implements Serializable {
-    private static final long serialVersionUID = -8319147573897583867L;
+public class BasketItemId {
     @NotNull
     @Column(name = "basket_id", nullable = false)
     private UUID basketId;

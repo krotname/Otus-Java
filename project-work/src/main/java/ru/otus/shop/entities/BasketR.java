@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
-public class BasketR implements Serializable {
+public class BasketR {
     @Id
     private UUID id;
     private String user;

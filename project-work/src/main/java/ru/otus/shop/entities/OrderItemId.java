@@ -14,8 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Embeddable
-public class OrderItemId implements Serializable {
-    private static final long serialVersionUID = -2322499440370590898L;
+public class OrderItemId {
     @NotNull
     @Column(name = "order_id", nullable = false)
     private UUID orderId;
