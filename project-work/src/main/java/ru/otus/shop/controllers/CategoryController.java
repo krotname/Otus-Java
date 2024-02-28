@@ -11,10 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.otus.shop.models.CategoriesDto;
 import ru.otus.shop.models.CategoryDto;
 import ru.otus.shop.services.CategoryService;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,18 +27,18 @@ public class CategoryController {
 
     @Operation(summary = "Получить список всех категорий", description = "Возвращает список категорий товаров")
     @ApiResponse(responseCode = "200", description = "Успешное получение списка категорий",
-            content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = CategoryDto.class)) })
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = CategoryDto.class))})
     @GetMapping
-    public List<CategoryDto> getAllCategories() {
-        return categoryService.findAllCategories();
+    public CategoriesDto getAllCategories() {
+        return new CategoriesDto(categoryService.findAllCategories());
     }
 
     @Operation(summary = "Получить категорию по ID", description = "Возвращает категорию по её идентификатору")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Найдена категория",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CategoryDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CategoryDto.class))}),
             @ApiResponse(responseCode = "404", description = "Категория не найдена",
                     content = @Content)
     })
@@ -51,8 +51,8 @@ public class CategoryController {
 
     @Operation(summary = "Создать новую категорию", description = "Создает новую категорию с указанными данными")
     @ApiResponse(responseCode = "201", description = "Категория успешно создана",
-            content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = CategoryDto.class)) })
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = CategoryDto.class))})
     @PostMapping
     public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) {
         CategoryDto createdCategory = categoryService.saveCategory(categoryDto);
@@ -62,8 +62,8 @@ public class CategoryController {
     @Operation(summary = "Обновить категорию", description = "Обновляет категорию с указанным ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Категория обновлена",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CategoryDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CategoryDto.class))}),
             @ApiResponse(responseCode = "404", description = "Категория не найдена",
                     content = @Content)
     })
