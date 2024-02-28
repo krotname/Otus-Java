@@ -13,7 +13,7 @@ import ru.otus.shop.models.ShopInfoDto;
 import ru.otus.shop.services.ShopInfoService;
 
 @RestController
-@RequestMapping("/api/shop-info")
+@RequestMapping("/api/v1/shop-info")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Информация о магазине", description = "Предоставляет информацию о магазине")

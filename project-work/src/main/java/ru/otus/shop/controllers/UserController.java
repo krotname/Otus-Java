@@ -17,7 +17,7 @@ import ru.otus.shop.services.UserService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @Tag(name = "Пользователи", description = "Управление пользователями")
 @Slf4j
 public class UserController {

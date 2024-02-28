@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/sales")
+@RequestMapping("/api/v1/sales")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Продажи", description = "Управление продажами")

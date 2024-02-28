@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor
 @Tag(name = "Категории", description = "Управление категориями товаров")
 public class CategoryController {
