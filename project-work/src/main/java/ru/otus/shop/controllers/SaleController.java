@@ -31,9 +31,9 @@ public class SaleController {
             content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = OrderDto.class)))
     @PostMapping
-    public ResponseEntity<OrderDto> createSale(@RequestBody @Parameter(description = "Данные заказа") OrderDto OrderDto) {
+    public ResponseEntity<OrderDto> createSale(@RequestBody @Parameter(description = "Данные заказа") OrderDto orderDto) {
         log.info("Запрос на создание нового заказа");
-        OrderDto createdSale = saleService.createSale(OrderDto);
+        OrderDto createdSale = saleService.createSale(orderDto);
         return new ResponseEntity<>(createdSale, HttpStatus.CREATED);
     }
 

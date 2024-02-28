@@ -7,4 +7,5 @@ import ru.otus.shop.models.OrderDto;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
     OrderDto orderToOrderDto(Order order);
+    Order orderDtoToOrder(OrderDto order);
 }

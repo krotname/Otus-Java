@@ -3,14 +3,11 @@ package ru.otus.shop.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import ru.otus.shop.entities.BasketR;
+import org.springframework.transaction.annotation.Transactional;
+import ru.otus.shop.entities.Order;
 import ru.otus.shop.mappers.OrderMapper;
 import ru.otus.shop.models.OrderDto;
-import ru.otus.shop.repositories.redis.BasketRedisRepository;
-import ru.otus.shop.repositories.OrderItemRepository;
-import ru.otus.shop.repositories.ProductRepository;
-import ru.otus.shop.models.OrderDto;
+import ru.otus.shop.repositories.OrderRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,31 +17,24 @@ import java.util.UUID;
 @Slf4j
 public class SaleService {
 
-    private final OrderItemRepository orderItemRepository;
-    private final ProductRepository productRepository;
-    private final BasketRedisRepository basketRedisRepository;
+    private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
 
-    public OrderDto newOrder(OrderDto order) {
-
-        BasketR basketR = new BasketR();
-        basketR.setId(UUID.randomUUID());
-        return order;
+    @Transactional
+    public OrderDto createSale(OrderDto orderDto) {
+        log.info("Создание нового заказа с данными: {}", orderDto);
+        Order order = orderMapper.orderDtoToOrder(orderDto);
+        order.setId(UUID.randomUUID());
+        order = orderRepository.save(order);
+        return orderMapper.orderToOrderDto(order);
     }
 
-    public OrderDto getOrder(@PathVariable("uuid") UUID uuid) {
-        log.info("getOrder {}", uuid );
-        BasketR order = basketRedisRepository.findById(uuid.toString()).orElseThrow();
-        log.info("getOrder {} ", order);
-//        orderMapper.orderToOrderDto(); // todo другое дто
-        return null;
+    @Transactional
+    public List<OrderDto> getUserSales(UUID userId) {
+        log.info("Получение истории заказов пользователя с ID: {}", userId);
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        return orders.stream().map(orderMapper::orderToOrderDto).toList();
     }
 
-    public OrderDto createSale(OrderDto orderDto) { // todo
-        return null;
-    }
 
-    public List<OrderDto> getUserSales(UUID userId) { // todo
-        return null;
-    }
 }
