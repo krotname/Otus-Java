@@ -79,7 +79,7 @@ public class CategoryController {
     @ApiResponse(responseCode = "204", description = "Категория удалена",
             content = @Content)
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteCategory(@PathVariable("id") UUID id) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable("id") UUID id) {
         categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

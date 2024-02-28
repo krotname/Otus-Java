@@ -85,7 +85,7 @@ public class ProductController {
     @ApiResponse(responseCode = "204", description = "Товар удален",
             content = @Content)
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") UUID id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") UUID id) {
         log.info("Запрос на удаление товара с id: {}", id);
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
