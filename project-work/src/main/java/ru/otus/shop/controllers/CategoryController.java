@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.otus.shop.exceptions.NotFoundException;
 import ru.otus.shop.models.CategoriesDto;
 import ru.otus.shop.models.CategoryDto;
 import ru.otus.shop.services.CategoryService;
@@ -43,10 +44,10 @@ public class CategoryController {
                     content = @Content)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable @Parameter(description = "ID категории, которую нужно найти") UUID id) {
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable("id") @Parameter(description = "ID категории, которую нужно найти") UUID id) {
         return categoryService.findCategoryById(id)
                 .map(category -> new ResponseEntity<>(category, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("Категория не найдена"));
     }
 
     @Operation(summary = "Создать новую категорию", description = "Создает новую категорию с указанными данными")
@@ -68,17 +69,17 @@ public class CategoryController {
                     content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDto> updateCategory(@PathVariable UUID id, @RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") UUID id, @RequestBody CategoryDto categoryDto) {
         return categoryService.updateCategory(id, categoryDto)
                 .map(category -> new ResponseEntity<>(category, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("Категория не найдена"));
     }
 
     @Operation(summary = "Удалить категорию", description = "Удаляет категорию с указанным ID")
     @ApiResponse(responseCode = "204", description = "Категория удалена",
             content = @Content)
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteCategory(@PathVariable UUID id) {
+    public ResponseEntity<HttpStatus> deleteCategory(@PathVariable("id") UUID id) {
         categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

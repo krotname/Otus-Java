@@ -42,7 +42,7 @@ public class SaleController {
             content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = OrderDto.class)))
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<OrderDto>> getUserSales(@PathVariable @Parameter(description = "ID пользователя, историю заказов которого нужно получить") UUID userId) {
+    public ResponseEntity<List<OrderDto>> getUserSales(@PathVariable("userId") @Parameter(description = "ID пользователя, историю заказов которого нужно получить") UUID userId) {
         log.info("Запрос на получение истории заказов пользователя с ID: {}", userId);
         List<OrderDto> userSales = saleService.getUserSales(userId);
         return new ResponseEntity<>(userSales, HttpStatus.OK);

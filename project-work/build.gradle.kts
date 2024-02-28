@@ -58,5 +58,5 @@ tasks.withType<Test> {
 }
 tasks.withType<JavaCompile> {
     val compilerArgs = options.compilerArgs
-    compilerArgs.add("-Amapstruct.defaultComponentModel=spring")
+    compilerArgs.add("-parameters")
 }

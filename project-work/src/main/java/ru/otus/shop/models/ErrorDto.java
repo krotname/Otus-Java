@@ -1,19 +1,16 @@
 package ru.otus.shop.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Value
 public class ErrorDto {
-    private String message;
-    private String description;
-    private LocalDateTime time;
+    String message;
+    LocalDateTime time;
 
+    public ErrorDto(String message) {
+        this.message = message;
+        this.time = LocalDateTime.now();
+    }
 }

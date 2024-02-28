@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.otus.shop.exceptions.NotFoundException;
 import ru.otus.shop.models.ProductDto;
 import ru.otus.shop.services.ProductService;
 
@@ -46,11 +47,11 @@ public class ProductController {
                     content = @Content)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable @Parameter(description = "ID товара, который нужно найти") UUID id) {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable("id") @Parameter(description = "ID товара, который нужно найти") UUID id) {
         log.info("Запрос на получение товара с id: {}", id);
         return productService.findProductById(id)
                 .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("Товар не найден"));
     }
 
     @Operation(summary = "Создать новый товар", description = "Создает новый товар с указанными данными")
@@ -73,18 +74,18 @@ public class ProductController {
                     content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable UUID id, @RequestBody @Parameter(description = "Новые данные товара") ProductDto productDto) {
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable("id") UUID id, @RequestBody @Parameter(description = "Новые данные товара") ProductDto productDto) {
         log.info("Запрос на обновление товара с id: {}", id);
         return productService.updateProduct(id, productDto)
                 .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("Товар для обновления не найден"));
     }
 
     @Operation(summary = "Удалить товар", description = "Удаляет товар с указанным ID")
     @ApiResponse(responseCode = "204", description = "Товар удален",
             content = @Content)
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable UUID id) {
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") UUID id) {
         log.info("Запрос на удаление товара с id: {}", id);
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
