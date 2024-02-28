@@ -18,13 +18,11 @@ public class BasketItem {
 
     @MapsId("basketId")
     @ManyToOne(optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "basket_id", nullable = false)
     private Basket basket;
 
     @MapsId("productId")
     @ManyToOne(optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 

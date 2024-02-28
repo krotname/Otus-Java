@@ -20,7 +20,6 @@ public class GoodsDelivery {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id")
     private Product product;
 

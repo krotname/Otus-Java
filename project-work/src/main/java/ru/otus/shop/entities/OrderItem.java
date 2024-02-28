@@ -18,13 +18,11 @@ public class OrderItem {
 
     @MapsId("orderId")
     @ManyToOne(optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @MapsId("productId")
     @ManyToOne(optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 

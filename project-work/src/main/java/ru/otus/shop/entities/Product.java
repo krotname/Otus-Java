@@ -34,7 +34,6 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "characteristics")
     private Characteristic characteristics;
 
@@ -49,14 +48,12 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "category")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "manufacturer")
     private Manufacturer manufacturer;
 
