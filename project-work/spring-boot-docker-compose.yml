@@ -1,0 +1,32 @@
+version: '3.9'
+volumes:
+    rabbitmq:
+    pgdata14:
+services:
+    db:
+        image: postgres:14.10
+        volumes:
+            - pgdata14:/var/lib/postgresql/data/
+        ports:
+            - "5430:5432"
+        environment:
+            - POSTGRES_DB=project-work
+            - POSTGRES_USER=project-work
+            - POSTGRES_PASSWORD=project-work
+            - TZ=Europe/Moscow
+    rabbitmq:
+        image: rabbitmq:3.11-management
+        environment:
+            - RABBITMQ_DEFAULT_USER=${LOGIN}
+            - RABBITMQ_DEFAULT_PASS=${PASSWORD}
+            - /etc/rabbitmq/rabbitmq.config:/config/rabbitmq.config:ro
+            - /etc/rabbitmq/rabbitmq.conf:/config/rabbitmq.conf:ro
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+        volumes:
+            - "rabbitmq:/var/lib/rabbitmq/mnesia/"
+    redis:
+        image: redis:7.2.4-alpine3.19
+        ports:
+            - "6379:6379"

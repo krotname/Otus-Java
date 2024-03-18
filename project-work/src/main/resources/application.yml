@@ -1,0 +1,40 @@
+server:
+  port: 8081
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  application:
+    name: shop-project
+  datasource:
+    url: jdbc:postgresql://localhost:5430/project-work
+    username: project-work
+    password: project-work
+  flyway:
+    url: jdbc:postgresql://localhost:5430/project-work
+    user: project-work
+    password: project-work
+    enabled: true
+    locations: classpath:db
+    baseline-on-migrate: true
+    baseline-version: 0
+  #  jpa:
+  #    defer-datasource-initialization: false
+  #    database: postgresql
+  sql:
+    init:
+      mode: always
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: TRACE
+    o.h.engine.jdbc: DEBUG
+springdoc:
+  show-actuator: true
